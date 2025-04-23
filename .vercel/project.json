@@ -1,0 +1,13 @@
+{
+  "projectId": "prj_your_project_id",
+  "orgId": "your_org_id",
+  "settings": {
+    "framework": "nextjs",
+    "devCommand": "npm run dev",
+    "buildCommand": "npm run build",
+    "outputDirectory": ".next",
+    "rootDirectory": "",
+    "createdAt": 1682512345678,
+    "installCommand": "npm install"
+  }
+}

@@ -35,14 +35,7 @@ export async function getUserProfile(): Promise<UserProfile | null> {
     return null;
   }
   
-  const supabase = getSupabaseClient();
-  const { data } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-    
-  return data;
+  return getUserProfileById(user.id);
 }
 
 export async function getUserProfileById(userId: string): Promise<UserProfile | null> {
@@ -55,7 +48,7 @@ export async function getUserProfileById(userId: string): Promise<UserProfile | 
     
   if (error) {
     console.error('Error fetching user profile:', error);
-    throw error;
+    return null;
   }
   
   return data;
@@ -66,7 +59,13 @@ export async function signOut(): Promise<void> {
   await supabase.auth.signOut();
 }
 
-// Function to create or update user profile
+/**
+ * Create or update a user profile
+ * 
+ * Centralized function for user profile management - use this instead of direct
+ * database operations to ensure consistent profile creation across the app.
+ * Automatically generates full_name and avatar_url if not provided.
+ */
 export async function createOrUpdateUserProfile(
   userId: string,
   profileData: Partial<UserProfile>
@@ -77,14 +76,27 @@ export async function createOrUpdateUserProfile(
     // Check if profile exists
     const { data: existingProfile } = await supabase
       .from('user_profiles')
-      .select('*')
+      .select('id, created_at, username, full_name, avatar_url')
       .eq('id', userId)
       .single();
+    
+    // Generate or use provided full_name
+    const fullName = profileData.full_name || 
+                     existingProfile?.full_name || 
+                     profileData.username || 
+                     existingProfile?.username;
+    
+    // Generate avatar URL if not provided
+    const avatarUrl = profileData.avatar_url || 
+                      existingProfile?.avatar_url || 
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName || 'User')}&background=random&color=fff&size=256`;
     
     // Prepare data for insert or update
     const profileToSave = {
       id: userId,
       ...profileData,
+      full_name: fullName,
+      avatar_url: avatarUrl,
       updated_at: new Date().toISOString(),
       // Only set created_at if this is a new profile
       ...(existingProfile ? {} : { created_at: new Date().toISOString() })
@@ -109,7 +121,7 @@ export async function createOrUpdateUserProfile(
   }
 }
 
-// Data fetching helpers
+// Data fetching helper
 export async function fetchFromTable<T = Record<string, unknown>>(
   tableName: keyof Database['public']['Tables'],
   options?: {
@@ -118,7 +130,7 @@ export async function fetchFromTable<T = Record<string, unknown>>(
     limit?: number;
     order?: [string, { ascending?: boolean }];
   }
-) {
+): Promise<T[]> {
   const supabase = getSupabaseClient();
   
   let query = supabase
@@ -140,8 +152,9 @@ export async function fetchFromTable<T = Record<string, unknown>>(
   const { data, error } = await query;
   
   if (error) {
-    throw error;
+    console.error(`Error fetching from ${tableName}:`, error);
+    return [];
   }
   
-  return data as T;
+  return data as T[];
 }

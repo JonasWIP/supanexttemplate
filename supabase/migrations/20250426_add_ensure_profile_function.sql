@@ -65,21 +65,114 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
 
 
 
+CREATE OR REPLACE FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text" DEFAULT NULL::"text", "user_full_name" "text" DEFAULT NULL::"text") RETURNS "void"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$
+DECLARE
+  generated_full_name TEXT;
+  generated_avatar_url TEXT;
+BEGIN
+  -- Generate full name if not provided
+  generated_full_name := COALESCE(
+    user_full_name,
+    user_username
+  );
+
+  -- Generate avatar URL if not provided
+  generated_avatar_url := COALESCE(
+    user_avatar_url,
+    'https://ui-avatars.com/api/?name=' || replace(generated_full_name, ' ', '+') || 
+    '&background=random&color=fff&size=256'
+  );
+
+  -- Check if user profile exists
+  IF NOT EXISTS (
+    SELECT 1 FROM public.user_profiles WHERE id = user_id
+  ) THEN
+    -- Create new profile if doesn't exist
+    INSERT INTO public.user_profiles (
+      id,
+      username,
+      full_name,
+      avatar_url,
+      created_at,
+      updated_at
+    ) VALUES (
+      user_id,
+      user_username,
+      generated_full_name,
+      generated_avatar_url,
+      NOW(),
+      NOW()
+    );
+  ELSE
+    -- Update existing profile if missing fields
+    UPDATE public.user_profiles
+    SET 
+      username = COALESCE(public.user_profiles.username, user_username),
+      full_name = COALESCE(public.user_profiles.full_name, generated_full_name),
+      avatar_url = COALESCE(public.user_profiles.avatar_url, generated_avatar_url),
+      updated_at = NOW()
+    WHERE 
+      id = user_id AND
+      (public.user_profiles.username IS NULL OR 
+       public.user_profiles.full_name IS NULL OR 
+       public.user_profiles.avatar_url IS NULL);
+  END IF;
+END;
+$$;
+
+
+ALTER FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text", "user_full_name" "text") OWNER TO "postgres";
+
+
+COMMENT ON FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text", "user_full_name" "text") IS 'Ensures a user profile exists with auto-generated full name and avatar';
+
+
+
 CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     AS $$
+DECLARE
+  username_val TEXT;
+  fullname_val TEXT;
+  avatar_val TEXT;
 BEGIN
   BEGIN
-    INSERT INTO public.user_profiles (id, username)
+    -- Extract username from metadata or email
+    username_val := COALESCE(
+      NEW.raw_user_meta_data->>'username',
+      NEW.raw_user_meta_data->>'name',
+      NEW.raw_app_meta_data->>'username',
+      split_part(NEW.email, '@', 1)
+    );
+    
+    -- Generate a full name if not provided in metadata
+    fullname_val := COALESCE(
+      NEW.raw_user_meta_data->>'full_name',
+      NEW.raw_user_meta_data->>'name',
+      username_val
+    );
+    
+    -- Generate an avatar URL using UI Avatars API based on the username or email
+    -- This creates a colored avatar with the user's initials
+    avatar_val := COALESCE(
+      NEW.raw_user_meta_data->>'avatar_url',
+      'https://ui-avatars.com/api/?name=' || replace(fullname_val, ' ', '+') || 
+      '&background=random&color=fff&size=256'
+    );
+    
+    INSERT INTO public.user_profiles (
+      id, 
+      username,
+      full_name,
+      avatar_url
+    )
     VALUES (
       NEW.id,
-      -- Try to extract username from user_metadata if available
-      COALESCE(
-        NEW.raw_user_meta_data->>'username',
-        NEW.raw_user_meta_data->>'name',
-        NEW.raw_app_meta_data->>'username',
-        split_part(NEW.email, '@', 1)
-      )
+      username_val,
+      fullname_val,
+      avatar_val
     );
   EXCEPTION WHEN OTHERS THEN
     -- Log error but don't fail the transaction
@@ -93,7 +186,7 @@ $$;
 ALTER FUNCTION "public"."handle_new_user"() OWNER TO "postgres";
 
 
-COMMENT ON FUNCTION "public"."handle_new_user"() IS 'Creates a user profile upon user creation';
+COMMENT ON FUNCTION "public"."handle_new_user"() IS 'Creates a user profile upon user creation with auto-generated full name and avatar';
 
 
 
@@ -359,6 +452,12 @@ GRANT USAGE ON SCHEMA "public" TO "service_role";
 
 
 
+
+
+
+GRANT ALL ON FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text", "user_full_name" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text", "user_full_name" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."ensure_user_profile"("user_id" "uuid", "user_username" "text", "user_avatar_url" "text", "user_full_name" "text") TO "service_role";
 
 
 

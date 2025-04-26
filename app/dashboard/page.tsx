@@ -11,8 +11,8 @@ import Image from 'next/image';
 type AuthUser = {
   id: string;
   email?: string;
-  user_metadata?: Record<string, any>;
-  app_metadata?: Record<string, any>;
+  user_metadata?: Record<string, null>;
+  app_metadata?: Record<string, null>;
 };
 
 // Use generated type from database.types.ts for user profile

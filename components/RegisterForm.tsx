@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getSupabaseClient, createOrUpdateUserProfile } from '@/lib/supabase';
+import { getSupabaseClient } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function RegisterForm() {
@@ -29,56 +29,32 @@ export default function RegisterForm() {
     }
 
     try {
-      console.log('Registering user:', { email, username });
       const supabase = getSupabaseClient();
       
-      // Register the user
+      // Register the user with metadata included
       const { error: signUpError, data } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            username, // Ensure username is in the metadata
+            username, // Include username in user metadata
+            full_name: username // Use username as initial full_name too
           },
           emailRedirectTo: `${window.location.origin}/api/auth/callback`,
         },
       });
 
-      if (signUpError) {
-        console.error('Registration error:', signUpError);
-        throw signUpError;
-      }
+      if (signUpError) throw signUpError;
 
-      console.log('Registration response:', data);
+      // User profile creation happens:
+      // 1. Automatically via database trigger in Supabase
+      // 2. As fallback in auth callback route when email is confirmed
+      // These mechanisms ensure profile creation even if client-side fails
 
       // Check if email confirmation is required
       if (data?.user && data?.session) {
         // Auto sign-in (email confirmation not required)
-        console.log('User registered and logged in:', data.user);
-        
-        // Manually create or update the profile just to be safe
-        try {
-          await createOrUpdateUserProfile(data.user.id, { 
-            username,
-            full_name: username // Using username for full_name initially 
-          });
-          console.log('Profile created successfully');
-        } catch (profileErr) {
-          console.error('Failed to create profile but continuing:', profileErr);
-          // Don't block the registration flow if profile creation fails
-        }
-        
         setSuccessMessage('Registration successful! Redirecting to dashboard...');
-        
-        // Save to local storage for debugging purposes
-        localStorage.setItem('supabase_debug_user', JSON.stringify({
-          email,
-          username,
-          userId: data.user.id,
-          registered: new Date().toISOString()
-        }));
-        
-        // Refresh auth context to update the navbar
         await refreshAuth();
         
         setTimeout(() => {
@@ -86,33 +62,10 @@ export default function RegisterForm() {
         }, 2000);
       } else if (data?.user) {
         // Email confirmation required
-        console.log('User registered, email confirmation required:', data.user);
-        
-        // Try to create profile even though user isn't confirmed yet
-        try {
-          await createOrUpdateUserProfile(data.user.id, { 
-            username,
-            full_name: username // Using username for full_name initially
-          });
-          console.log('Profile created successfully');
-        } catch (profileErr) {
-          console.error('Failed to create profile but continuing:', profileErr);
-          // Don't block the flow if profile creation fails
-        }
-        
         setSuccessMessage('Registration successful! Please check your email to confirm your account before logging in.');
-        
-        // For development convenience, store the credentials
-        localStorage.setItem('supabase_debug_user', JSON.stringify({
-          email,
-          username,
-          userId: data.user.id,
-          registered: new Date().toISOString(),
-          requiresEmailConfirmation: true
-        }));
       }
     } catch (err: any) {
-      // Enhanced error handling
+      // Error handling
       let errorMessage = 'Failed to register';
       
       if (err.message) {
@@ -149,10 +102,8 @@ export default function RegisterForm() {
         },
       });
 
-      if (error) {
-        throw error;
-      }
-      // The redirect is handled by Supabase
+      if (error) throw error;
+      // The redirect will be handled by Supabase
     } catch (err: any) {
       setError(err.message || 'Failed to sign up with Google');
       console.error('Google signup error:', err);
@@ -160,7 +111,6 @@ export default function RegisterForm() {
     }
   };
 
-  // The rest of your component remains the same
   return (
     <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="text-center">
@@ -189,15 +139,6 @@ export default function RegisterForm() {
           <p>{successMessage}</p>
         </div>
       )}
-
-      {/* Dev mode helper message */}
-      <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
-        <p className="font-medium mb-1">Development Mode</p>
-        <p className="text-sm">
-          After registering, you'll be either automatically logged in or asked to confirm your email.
-          For testing purposes, your credentials will be saved in localStorage.
-        </p>
-      </div>
 
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-4">

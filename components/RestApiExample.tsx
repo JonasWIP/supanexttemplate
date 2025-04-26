@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Database } from '../lib/database.types';
-import { ApiError } from '../lib/utils';
 
 // Define type for user profile based on database schema
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];

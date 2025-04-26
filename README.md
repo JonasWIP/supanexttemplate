@@ -99,7 +99,14 @@ npx supabase migration up
 npx supabase gen types typescript --db-url "postgresql://postgres:postgres@localhost:54322/postgres" > lib/database.types.ts
 
 
+To update local migrations to match remote database:
+supabase db pull
 
+
+Reset local database and reapply migrations:
+```bash
+npx supabase db reset
+```
 
 ## License
 

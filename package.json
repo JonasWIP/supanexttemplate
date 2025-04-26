@@ -7,7 +7,20 @@
     "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "supabase:init": "npx supabase init --force",
+    "supabase:start": "npx supabase start",
+    "supabase:stop": "npx supabase stop",
+    "supabase:updatetypes": "npx supabase gen types typescript --db-url \"postgresql://postgres:postgres@localhost:54322/postgres\" > lib/database.types.ts",
+    "supabase:dbpull": "npx supabase db pull",
+    "supabase:dbreset": "npx supabase db reset",
+    "supabase:dbpush": "npx supabase db push",
+    "supabase:dbdiff": "npx supabase db diff",
+    "supabase:dbsquash": "npx supabase db squash",
+    "supabase:dbmigrationup": "npx supabase db migration up",
+    "supabase:link": "npx supabase link",
+    "supabase:dbseed": "npx supabase db seed"
+
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",

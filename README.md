@@ -12,33 +12,39 @@ A simplified template for Next.js and Supabase projects with TypeScript and Tail
 
 ## Getting Started
 
-npx create-supabase-next <project-name> or npx create-supabase-next --template <template-url>
+Follow these steps to set up your project:
 
-cd <project-name>
+1. Create your project:
+    - Default template:  
+      npx create-supabase-next <project-name>
+    - Custom template:  
+      npx create-supabase-next --template <template-url>
 
-npm install
+2. Navigate into your project directory:  
+    cd <project-name>
 
+3. Install dependencies:  
+    npm install
 
+---
 
-TO start a local supabase instance:
-Start Docker-Engine
-npx supabase start
+## Running the Development Environment
 
-TO run the fronend development server:
-npm run dev
+### Starting Your Local Supabase Instance
 
-npm install -g supabase
-Starte eine lokale Supabase-Instanz:
+1. Ensure Docker is running on your machine.
+2. Start Supabase:
+    - Using the npm script (if provided in package.json):  
+      npm run supabase:start
+    - Or directly:  
+      npx supabase start
 
+**Note:**  
+- If you initially set up your project with npx create-supabase-next, Supabase is pre-initialized.
+- To reinitialize (overwriting any existing configuration), run:  
+  npx supabase init --force
 
-(not needed if installed with npx create-supabase-next) npx supabase init
-(use npx supabase init --force if you want to overwrite the existing supabase folder and start again)
-
-Start 
-npx supabase start
-
-
-When you run `npx supabase start`, you'll receive local development credentials like:
+When starting Supabase, you'll see local development credentials such as:
 
 ```
 API URL: http://127.0.0.1:54321
@@ -55,70 +61,67 @@ S3 Secret Key: <your-s3-secret-key>
 S3 Region: local
 ```
 
-Save these credentials somewhere safe. You'll need them to configure your LOCAL environment variables.
-Replace the values in `.env.local` with the ones you received from `npx supabase start`.
+Save these details securely and update your `.env.local` file with the provided values.
 
-If using this setup you can acces your local supabase dashboard under : http://127.0.0.1:54323
+Access your Supabase dashboard at:  
+http://127.0.0.1:54323
 
+---
 
-troubleshooting:
+### Running the Frontend Development Server
+
+Start your Next.js development server:
+- Using npm script:  
+  npm run dev
+
+---
+
+## Troubleshooting
+
+If you experience issues with the Supabase CLI, update it globally:
 npm install -g supabase@latest
+## Scripts
+- `npm run dev` - Start the development server
+- `npm run supabase:link` - Link the local Supabase instance to the project
+- `npm run subabase:init` - Initialize Supabase in the project
+- `npm run supabase:start` - Start the Supabase local development server
+- `npm run supabase:stop` - Stop the Supabase local development server
+- `npm run supabase:updatetypes` - Update the database types in the project
+- `npm run supabase:dbpull` - Update from the hosted database to local database
+- `npm run supabase:dbreset` - Reset the local database and reapply migrations
+- `npm run supabase:dbmigrationup`- Apply all migrations to the local database
+- `npm run supabase:dbpush` - Push the local database to the hosted database WARNING: This will overwrite the hosted database with the local database
+- `npm run supabase:dbdiff` - Create a migration from the existing database using file
+- `npm run supabase:dbsquash` - Squash all migrations from the local into one file
 
 
-## Database Migrations
+- `npm run supabase:dbseed` - Seed the local database with initial data
+
+## Setting Up your Environment and Deployment
+Assuime you have a Supabase project set up and the Supabase CLI installed. If not, follow the instructions in the [Supabase documentation](https://supabase.com/docs/guides/cli). And also use the local Supabase instance for development.
+
+You should have a .env.local file with by now:
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
 
-Link local supabase instance to your project with the following command:
-```bash
-npx supabase link
-```
-Select the project you want to link to.
-Enter the password from the creation on supabase.com for the project.
 
 
-Create your first migration with the following command:
-Create tables or use the 001_initial.sql file in the migrations folder to create your tables.
-
-Apply the migration to the database with the following command:
-```bash
-npx supabase db push
-```
-
-Create a migration from the existing database using file with the following command:
-```bash
-npx supabase db diff --schema public --file migrations/001_initial.sql
-```
-
-For Deployment
-supabase db push --project-ref your-prod-project-id
-
-
-npx supabase migration up
-
-//Generate types file from local supabase instance
-npx supabase gen types typescript --db-url "postgresql://postgres:postgres@localhost:54322/postgres" > lib/database.types.ts
-
-
-To update local migrations to match remote database:
-supabase db pull
-
-
-Reset local database and reapply migrations:
-```bash
-npx supabase db reset
-```
 
 ## License
 
 MIT
 
 ## TODO
-- Build pipelines for deployment via git
-- Database tasks as package.json scripts
-- init supabase project with supabase init --force
-- automatic migration when push on main or pull from main branch
-- Guide on creating new features and components etc. 
-- Darkreader/mode support
-- Metadata for SEO
-- Module hinzufügbar wie Zahlungsdienstleister
+
 - Test Frameworks für Back und Frontend
+- Darkmode Tailwind CSS
+- Guide on creating new features and components etc. 
+- Build pipelines for deployment via git
+- Update this Readme with all the features and how to use them
+
+- Module hinzufügbar wie Zahlungsdienstleister, Three.js
+ 
+- Template for issues and pull requests
+- Metadata for SEO
+- Update this Readme with all the features and how to use them

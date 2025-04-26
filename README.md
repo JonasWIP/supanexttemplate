@@ -123,4 +123,3 @@ MIT
 - Metadata for SEO
 - Module hinzufügbar wie Zahlungsdienstleister
 - Test Frameworks für Back und Frontend
-- Register Link einfügen bei Login und navbar wenn nicht eingeloggt 

@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const next = searchParams.get('next') ?? '/';
 
   if (code) {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -45,14 +45,16 @@ export async function GET(request: Request) {
       const avatarUrl = session.user.user_metadata?.avatar_url;
 
       // Use RPC to ensure profile exists with full name and avatar
-      await supabase.rpc('ensure_user_profile', { 
-        user_id: session.user.id,
-        user_username: username || null,
-        user_full_name: fullName || null,
-        user_avatar_url: avatarUrl || null
-      }).catch(error => {
+      try {
+        await supabase.rpc('ensure_user_profile', { 
+          user_id: session.user.id,
+          user_username: username || null,
+          user_full_name: fullName || null,
+          user_avatar_url: avatarUrl || null
+        });
+      } catch (error: unknown) {
         console.error('Error creating profile via RPC:', error);
-      });
+      }
     }
 
     if (error) {

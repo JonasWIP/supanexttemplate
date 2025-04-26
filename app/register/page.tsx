@@ -1,4 +1,4 @@
-import RegisterForm from '@/components/RegisterForm';
+import RegisterForm from '@/components/forms/RegisterForm';
 
 export const metadata = {
   title: 'Register - SupaNext Template',

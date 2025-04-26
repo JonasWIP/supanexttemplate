@@ -90,21 +90,8 @@ npx supabase db push
 
 
 ## Scripts
-- `npm run dev` - Start the development server
-- `npm run supabase:link` - Link the local Supabase instance to the project
-- `npm run subabase:init` - Initialize Supabase in the project
-- `npm run supabase:start` - Start the Supabase local development server
-- `npm run supabase:stop` - Stop the Supabase local development server
-- `npm run supabase:updatetypes` - Update the database types in the project
-- `npm run supabase:dbpull` - Update from the hosted database to local database
-- `npm run supabase:dbreset` - Reset the local database and reapply migrations
-- `npm run supabase:dbmigrationup`- Apply all migrations to the local database
-- `npm run supabase:dbpush` - Push the local database to the hosted database WARNING: This will overwrite the hosted database with the local database
-- `npm run supabase:dbdiff` - Create a migration from the existing database using file
-- `npm run supabase:dbsquash` - Squash all migrations from the local into one file
-
-
-- `npm run supabase:dbseed` - Seed the local database with initial data
+- Check the package.json file for available scripts.
+- Contains Supabase commands for local development and deployment.
 
 ## Setting Up Your Environment and Deployment
 
@@ -156,6 +143,9 @@ Supabase uses the "Site URL" to generate email links (e.g., magic links, passwor
   https://your-production-domain.com
   ```
 
+## Test
+Currently it runs npm test and checks if for compile errors and if the tests are running.
+Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 - Add Testing to CI/CD
@@ -182,6 +172,8 @@ Supabase uses the "Site URL" to generate email links (e.g., magic links, passwor
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js
 - Automating More of the setup process
 - Full integration into a Custom Managment System with frontend and development tools
+
+
 
 
 ## License

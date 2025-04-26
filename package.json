@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test":"jest --ci",
+    "test": "jest --ci",
     "supabase:init": "npx supabase init --force",
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",
@@ -21,8 +21,7 @@
     "supabase:link": "npx supabase link",
     "supabase:dbseed": "npx supabase db seed",
     "supabase:functions:deploy": "npx supabase functions deploy",
-    "supabase:functions:serve:local":"npx supabase functions serve hello-world"
-
+    "supabase:functions:serve:local": "npx supabase functions serve hello-world"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",
@@ -39,12 +38,16 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"

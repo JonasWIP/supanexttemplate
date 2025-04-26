@@ -51,6 +51,12 @@ export default function RestApiTester({
         
         {error && <FormAlert type="error" message={error} />}
         
+        {!profile && !error && !isLoading && (
+          <div className="px-4 py-3 border border-gray-200 dark:border-gray-700 rounded text-sm text-gray-500 dark:text-gray-400">
+            Click the button above to fetch your profile data
+          </div>
+        )}
+        
         {profile && (
           <div className="mt-4">
             <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Profile Data:</h3>

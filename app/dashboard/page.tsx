@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getCurrentUser, getUserProfile, signOut } from '../../lib/supabase';
+import { getCurrentUser, getUserProfile, signOut, getUserProfileById } from '../../lib/supabase';
 import { useRouter } from 'next/navigation';
 import { Database } from '../../lib/database.types';
-import { fetchSupabaseREST } from '../../lib/utils';
 import UserProfile from '@/components/dashboard/UserProfile';
 import DashboardActions from '@/components/dashboard/DashboardActions';
 import RestApiTester from '@/components/dashboard/RestApiTester';
@@ -40,6 +39,7 @@ export default function DashboardPage() {
           // Get user profile via Supabase client
           const userProfile = await getUserProfile();
           setProfile(userProfile);
+          console.log("Loaded user profile with ID:", userProfile?.id);
         } else {
           // Redirect to login if no user is found
           router.push('/login');
@@ -55,7 +55,7 @@ export default function DashboardPage() {
     loadUserData();
   }, [router]);
 
-  // Function to fetch user profile using direct REST API
+  // Function to fetch user profile using Supabase client method instead of direct REST API
   const fetchUserProfileViaREST = async () => {
     if (!user) return;
     
@@ -63,19 +63,18 @@ export default function DashboardPage() {
     setError(null);
     
     try {
-      const userProfile = await fetchSupabaseREST<UserProfile[]>(
-        `user_profiles?select=*&id=eq.${user.id}`
-      );
+      // Using the Supabase client method instead of direct REST API
+      const userProfile = await getUserProfileById(user.id);
       
-      // REST API returns an array
-      if (Array.isArray(userProfile) && userProfile.length > 0) {
-        setProfile(userProfile[0]);
+      if (userProfile) {
+        setProfile(userProfile);
+        console.log("Successfully fetched profile via Supabase client");
       } else {
         setProfile(null);
-        setError('No profile found');
+        setError('No profile found. Your user account might not have an associated profile record.');
       }
     } catch (err) {
-      console.error('Error fetching via REST API:', err);
+      console.error('Error fetching profile:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch user profile');
     } finally {
       setApiLoading(false);

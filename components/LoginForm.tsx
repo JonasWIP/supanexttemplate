@@ -20,7 +20,6 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      console.log('Attempting to sign in with:', email);
       const supabase = getSupabaseClient();
       const { error, data } = await supabase.auth.signInWithPassword({
         email,
@@ -34,8 +33,6 @@ export default function LoginForm() {
         }
         throw error;
       }
-
-      console.log('Sign in successful', data);
       
       // Refresh auth state immediately
       await refreshAuth();

@@ -39,7 +39,6 @@ export default function DashboardPage() {
           // Get user profile via Supabase client
           const userProfile = await getUserProfile();
           setProfile(userProfile);
-          console.log("Loaded user profile with ID:", userProfile?.id);
         } else {
           // Redirect to login if no user is found
           router.push('/login');
@@ -68,7 +67,6 @@ export default function DashboardPage() {
       
       if (userProfile) {
         setProfile(userProfile);
-        console.log("Successfully fetched profile via Supabase client");
       } else {
         setProfile(null);
         setError('No profile found. Your user account might not have an associated profile record.');

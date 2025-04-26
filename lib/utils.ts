@@ -120,9 +120,6 @@ export async function fetchSupabaseREST<T = Record<string, unknown>>(
     : `${supabaseUrl}/rest/v1/${path.startsWith('/') ? path.substring(1) : path}`;
 
   try {
-    console.log(`Fetching from Supabase REST API: ${url}`);
-    console.log('Using headers:', JSON.stringify(defaultHeaders, null, 2));
-    
     const response = await fetch(url, {
       ...options,
       headers: {
@@ -130,8 +127,6 @@ export async function fetchSupabaseREST<T = Record<string, unknown>>(
         ...(options.headers || {})
       },
     });
-
-    console.log(`Response status: ${response.status} ${response.statusText}`);
     
     if (!response.ok) {
       const errorText = await response.text();
@@ -144,7 +139,6 @@ export async function fetchSupabaseREST<T = Record<string, unknown>>(
     }
 
     const data = await response.json();
-    console.log('Response data:', Array.isArray(data) ? `Array with ${data.length} items` : 'Object');
     return data as T;
   } catch (error) {
     if (error instanceof ApiError) {

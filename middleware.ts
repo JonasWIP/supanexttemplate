@@ -3,8 +3,6 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  console.log(`🔍 Middleware checking route: ${request.nextUrl.pathname}`);
-  
   // Create an unmodified response
   let response = NextResponse.next({
     request: {
@@ -66,11 +64,8 @@ export async function middleware(request: NextRequest) {
       apiRoutes.some(route => path.startsWith(route));
       
     if (isPublicRoute) {
-      console.log(`📢 Path "${path}" is a public route, skipping auth check`);
       return response;
     }
-
-    console.log(`🔒 Path "${path}" is protected, checking authentication...`);
     
     // Check if user is authenticated
     const {
@@ -83,19 +78,15 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!user) {
-      console.log(`🚫 No authenticated user found, redirecting to login`);
       const url = request.nextUrl.clone();
       url.pathname = '/login';
       return NextResponse.redirect(url);
     }
-    
-    console.log(`✅ User authenticated: ${user.id} (${user.email || 'no email'}), continuing to ${path}`);
   } catch (error) {
     console.error(`💥 Middleware error: ${error instanceof Error ? error.message : String(error)}`);
     // On error, just continue without redirecting
   }
 
-  console.log(`➡️ Middleware completed for ${request.nextUrl.pathname}`);
   return response;
 }
 

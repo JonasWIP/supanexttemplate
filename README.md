@@ -144,7 +144,6 @@ MIT
 ## TODO
 
 - Test Frameworks für Back und Frontend
-- Update Backend URL for live deployment?
 - Update this Readme with all the features and how to use them
 - Final Testing and remove hints 
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js

@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test":"jest --ci",
     "supabase:init": "npx supabase init --force",
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",

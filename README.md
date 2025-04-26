@@ -158,12 +158,18 @@ Supabase uses the "Site URL" to generate email links (e.g., magic links, passwor
 
 
 ## TODO
-- Test Frameworks für Back und Frontend
-- Expain Testing in readme
 - Add Testing to CI/CD
+- Expain Testing in readme
+- Remove Debugging Logs and console logs
+
 - Metadata for SEO
+- Remove unused files and folders
+
 - Test Setup using the npx creation tool
 - Final Testing and remove hints 
+
+- Dependabot for the project
+
 
 ## Future Improvements
 

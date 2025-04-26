@@ -64,21 +64,22 @@ export default function RegisterForm() {
         // Email confirmation required
         setSuccessMessage('Registration successful! Please check your email to confirm your account before logging in.');
       }
-    } catch (err: any) {
+    } catch (err: Error | unknown) {
       // Error handling
       let errorMessage = 'Failed to register';
       
-      if (err.message) {
-        if (err.message.includes('duplicate key')) {
-          if (err.message.includes('username')) {
+      if (err instanceof Error && err.message) {
+        const errMsg = err.message;
+        if (errMsg.includes('duplicate key')) {
+          if (errMsg.includes('username')) {
             errorMessage = 'Username already exists. Please choose another username.';
-          } else if (err.message.includes('email')) {
+          } else if (errMsg.includes('email')) {
             errorMessage = 'Email already registered. Please use a different email or try logging in.';
           } else {
             errorMessage = 'A user with these details already exists.';
           }
         } else {
-          errorMessage = err.message;
+          errorMessage = errMsg;
         }
       }
       
@@ -104,8 +105,9 @@ export default function RegisterForm() {
 
       if (error) throw error;
       // The redirect will be handled by Supabase
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign up with Google');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to sign up with Google';
+      setError(errorMessage);
       console.error('Google signup error:', err);
       setLoading(false);
     }

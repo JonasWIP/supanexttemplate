@@ -97,14 +97,45 @@ npm install -g supabase@latest
 
 - `npm run supabase:dbseed` - Seed the local database with initial data
 
-## Setting Up your Environment and Deployment
-Assuime you have a Supabase project set up and the Supabase CLI installed. If not, follow the instructions in the [Supabase documentation](https://supabase.com/docs/guides/cli). And also use the local Supabase instance for development.
+## Setting Up Your Environment and Deployment
 
-You should have a .env.local file with by now:
-NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+Before you begin, ensure you have a Supabase project and the Supabase CLI installed. If not, refer to the [Supabase documentation](https://supabase.com/docs/guides/cli) for guidance. For local development, use your local Supabase instance.
 
+### Local Development
 
+1. Create a .env.local file in your project's root directory with the following content:
+    ```
+    NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+    ```
+
+2. Start your local Supabase instance and verify that your Next.js app connects correctly.
+
+### Production Deployment
+
+1. Push your repository to GitHub.
+2. In your GitHub repository, navigate to:
+    Repository → Settings → Secrets and Variables → Actions.
+
+3. If not done already, Signup to vercel, Create a Orgnaisation and import this project from your github account.
+Select Next as Framework and hit the "Deploy" button.
+
+4. Set up an environment (e.g., Production) and add the following secrets:
+
+    | Secret Name                   | Description                                     | Source/Where to Find                          |
+    |-------------------------------|-------------------------------------------------|-----------------------------------------------|
+    | VERCEL_TOKEN                  | API Token from Vercel                           | vercel.com/account/tokens create new token                       |
+    | VERCEL_PROJECT_ID             | Project ID on Vercel                            | Vercel Dashboard → Project Settings             |
+    | VERCEL_ORG_ID                 | Organization ID on Vercel                       | Vercel Dashboard → Organization Settings        |
+    | NEXT_PUBLIC_SUPABASE_URL      | Public Supabase URL                             | Supabase Dashboard → Project Settings             |
+    | NEXT_PUBLIC_SUPABASE_ANON_KEY | Anonymous API Key for Supabase (Public)         | Supabase Dashboard → API settings                |
+    | SUPABASE_ACCESS_TOKEN         | Supabase CLI Token                              | Supabase Dashboard → Settings → Access Tokens     |
+    | SUPABASE_PROJECT_ID           | Supabase Project ID                             | Supabase Dashboard → Settings → General           |
+    | SUPABASE_DB_PASSWORD (optional) | Supabase database password (if required)     | Provided by Supabase if needed                   |
+
+4. Once these secrets are configured, integrate them into your deployment pipeline with your preferred hosting provider (e.g., Vercel).
+
+Following these steps will prepare your project for both local development and a smooth production deployment.
 
 
 

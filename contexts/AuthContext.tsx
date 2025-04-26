@@ -12,10 +12,11 @@ type User = {
 
 type UserProfile = {
   id: string;
-  username?: string;
-  full_name?: string;
-  avatar_url?: string;
-  created_at?: string;
+  username: string | null;
+  full_name: string | null;
+  avatar_url: string | null;
+  created_at: string | null;
+  updated_at: string | null;
 };
 
 type AuthContextType = {

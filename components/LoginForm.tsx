@@ -43,8 +43,9 @@ export default function LoginForm() {
       // Redirect to dashboard without page refresh
       router.push('/dashboard');
 
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to sign in';
+      setError(errorMessage);
       console.error('Login error:', err);
     } finally {
       setLoading(false);
@@ -68,8 +69,9 @@ export default function LoginForm() {
         throw error;
       }
       // The redirect is handled by Supabase and our callback will handle refreshing auth
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in with Google');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Google';
+      setError(errorMessage);
       console.error('Google login error:', err);
       setLoading(false);
     }

@@ -165,6 +165,9 @@ Supabase uses the "Site URL" to generate email links (e.g., magic links, passwor
 - Metadata for SEO
 - Remove unused files and folders
 
+- Refactoring of the codebase
+- 
+
 - Test Setup using the npx creation tool
 - Final Testing and remove hints 
 

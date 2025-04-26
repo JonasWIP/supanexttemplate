@@ -21,6 +21,19 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+      
+              # ➡️ NEU: Lint Codebase
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Check Build
+        run: npm run build
+
+      - name: Jest test
+        run: npm run test
 
       - name: Run Supabase Database Migration (using scripts)
         env:
@@ -51,4 +64,6 @@ jobs:
 
       - name: Deploy to Vercel
         run: npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      
       

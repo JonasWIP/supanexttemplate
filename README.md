@@ -146,11 +146,9 @@ MIT
 - Test Frameworks für Back und Frontend
 - Darkmode Tailwind CSS
 - Guide on creating new features and components etc. 
-- Build pipelines for deployment via git
 - Update this Readme with all the features and how to use them
 
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js
  
-- Template for issues and pull requests
 - Metadata for SEO
 - Update this Readme with all the features and how to use them

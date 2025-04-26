@@ -131,7 +131,7 @@ SUPABASE_ACCESS_TOKEN | In Supabase → Account Settings → Personal Access Tok
 SUPABASE_DB_PASSWORD | In Supabase → Settings → Database → "Connection string" → extrahiere das Passwort
 YOUR_PROJECT_REF | Dein Supabase Projekt-ID
 
-4. Once these secrets are configured, integrate them into your deployment pipeline with your preferred hosting provider (e.g., Vercel).
+5. Commit any changes to main and push to GitHub. This will trigger a deployment on Vercel and update supabase.
 
 Following these steps will prepare your project for both local development and a smooth production deployment.
 

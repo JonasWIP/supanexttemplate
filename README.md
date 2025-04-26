@@ -80,6 +80,15 @@ Start your Next.js development server:
 
 If you experience issues with the Supabase CLI, update it globally:
 npm install -g supabase@latest
+## Migration Guide
+npx supabase migration new migration_name
+edit the migration file in supabase/migrations/<timestamp>_migration_name.sql
+then either:
+npx supabase db reset 
+or
+npx supabase db push
+
+
 ## Scripts
 - `npm run dev` - Start the development server
 - `npm run supabase:link` - Link the local Supabase instance to the project

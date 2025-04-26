@@ -138,7 +138,8 @@ export async function fetchFromTable<T = Record<string, unknown>>(
     .select(options?.select || '*');
     
   if (options?.eq) {
-    query = query.eq(options.eq[0], options.eq[1]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    query = query.eq(options.eq[0], options.eq[1] as any);
   }
   
   if (options?.order) {

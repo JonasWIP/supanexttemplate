@@ -19,7 +19,9 @@
     "supabase:dbsquash": "npx supabase db squash",
     "supabase:dbmigrationup": "npx supabase db migration up",
     "supabase:link": "npx supabase link",
-    "supabase:dbseed": "npx supabase db seed"
+    "supabase:dbseed": "npx supabase db seed",
+    "supabase:functions:deploy": "npx supabase functions deploy",
+    "supabase:functions:serve:local":"npx supabase functions serve hello-world"
 
   },
   "dependencies": {

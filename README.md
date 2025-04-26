@@ -151,9 +151,8 @@ Following these steps will prepare your project for both local development and a
 MIT
 
 ## TODO
-
+- Email Redirect Links
 - Test Frameworks für Back und Frontend
-- Update this Readme with all the features and how to use them
 - Final Testing and remove hints 
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js
  

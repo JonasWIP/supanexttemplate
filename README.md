@@ -162,14 +162,19 @@ https://your-production-domain.com
 
 
 
-## License
 
-MIT
 
 ## TODO
 - Test Frameworks für Back und Frontend
-- Final Testing and remove hints 
-- Module hinzufügbar wie Zahlungsdienstleister, Three.js
- 
+- Expain Testing in readme
+- Add Testing to CI/CD
 - Metadata for SEO
-- Update this Readme with all the features and how to use them
+- Final Testing and remove hints 
+
+## Future Improvements
+
+- Module hinzufügbar wie Zahlungsdienstleister, Three.js
+
+## License
+
+MIT

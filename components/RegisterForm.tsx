@@ -129,14 +129,14 @@ export default function RegisterForm() {
       </div>
 
       {error && (
-        <div className="p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
-          <p>{error}</p>
+        <div className="p-4 bg-red-100 border-l-4 border-red-500 text-red-800">
+          <p className="text-red-700">{error}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="p-4 bg-green-100 border-l-4 border-green-500 text-green-700">
-          <p>{successMessage}</p>
+        <div className="p-4 bg-green-100 border-l-4 border-green-500 text-green-800">
+          <p className="text-green-700">{successMessage}</p>
         </div>
       )}
 

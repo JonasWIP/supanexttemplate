@@ -16,6 +16,10 @@
   }
 
   p {
-    @apply text-gray-100;
+    @apply text-gray-700;
+  }
+
+  .dark p {
+    @apply text-gray-300;
   }
 }

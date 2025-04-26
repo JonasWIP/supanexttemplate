@@ -119,7 +119,6 @@ MIT
 - automatic migration when push on main or pull from main branch
 - Guide on creating new features and components etc. 
 - Darkreader/mode support
-- Better Colors when white mode
 - Metadata for SEO
 - Module hinzufügbar wie Zahlungsdienstleister
 - Test Frameworks für Back und Frontend

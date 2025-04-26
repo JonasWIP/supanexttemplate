@@ -93,15 +93,15 @@ export default function LoginForm() {
       </div>
 
       {error && (
-        <div className="p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
-          <p>{error}</p>
+        <div className="p-4 bg-red-100 border-l-4 border-red-500 text-red-800">
+          <p className="text-red-700">{error}</p>
         </div>
       )}
 
       {/* Dev mode helper message */}
-      <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
-        <p className="font-medium mb-1">Development Mode</p>
-        <p className="text-sm">
+      <div className="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+        <p className="font-medium mb-1 text-yellow-800">Development Mode</p>
+        <p className="text-sm text-yellow-700">
           You need to register a user first via the{' '}
           <Link href="/register" className="underline font-medium">
             registration page

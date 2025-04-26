@@ -148,28 +148,35 @@ Currently it runs npm test and checks if for compile errors and if the tests are
 Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
-- Remove Debugging Logs and console logs
 
-- Metadata for SEO
+
+- Supabase SSR
+- Refactoring of the codebase
 - Remove unused files and folders
 
-- Refactoring of the codebase
-- 
+- Metadata for SEO
 
-- Test Setup using the npx creation tool
-- Final Testing and remove hints 
-
+- Update Github Templates
+- Remove issues from supabase and compile
 - Dependabot for the project
+
+- Test the npx creation tool
+
+- Final Testing 
+
+
 
 
 ## Future Improvements
 
 - Add roomodes, project specific instructions, fill gaps of knowledge for ai models
 - Add mcp tools for the used ai agent models
+- Project summary
 - Integration in
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js
 - Automating More of the setup process
 - Full integration into a Custom Managment System with frontend and development tools
+
 
 
 

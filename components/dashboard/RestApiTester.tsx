@@ -53,8 +53,8 @@ export default function RestApiTester({
         
         {profile && (
           <div className="mt-4">
-            <h3 className="font-medium text-gray-700 mb-2">Profile Data:</h3>
-            <pre className="bg-gray-50 p-3 rounded text-xs overflow-auto max-h-48">
+            <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Profile Data:</h3>
+            <pre className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-xs overflow-auto max-h-48 text-gray-800 dark:text-gray-200">
               {JSON.stringify(profile, null, 2)}
             </pre>
           </div>

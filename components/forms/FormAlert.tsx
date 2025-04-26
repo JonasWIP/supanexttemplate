@@ -10,17 +10,17 @@ interface FormAlertProps {
 }
 
 const alertStyles: Record<AlertType, string> = {
-  success: 'bg-green-100 border-l-4 border-green-500 text-green-700',
-  error: 'bg-red-100 border-l-4 border-red-500 text-red-700',
-  warning: 'bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700',
-  info: 'bg-blue-100 border-l-4 border-blue-500 text-blue-700',
+  success: 'bg-green-100 dark:bg-green-900/30 border-l-4 border-green-500 text-green-700 dark:text-green-300',
+  error: 'bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300',
+  warning: 'bg-yellow-100 dark:bg-yellow-900/30 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300',
+  info: 'bg-blue-100 dark:bg-blue-900/30 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300',
 };
 
 const textStyles: Record<AlertType, string> = {
-  success: 'text-green-700',
-  error: 'text-red-700',
-  warning: 'text-yellow-700',
-  info: 'text-blue-700',
+  success: 'text-green-700 dark:text-green-300',
+  error: 'text-red-700 dark:text-red-300',
+  warning: 'text-yellow-700 dark:text-yellow-300',
+  info: 'text-blue-700 dark:text-blue-300',
 };
 
 export default function FormAlert({ type, message, className }: FormAlertProps) {

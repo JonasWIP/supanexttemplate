@@ -91,7 +91,7 @@ export default function DashboardPage() {
     return (
       <PageContainer>
         <div className="flex items-center justify-center min-h-[50vh]">
-          <p className="text-lg">Loading...</p>
+          <p className="text-lg dark:text-white">Loading...</p>
         </div>
       </PageContainer>
     );

@@ -144,6 +144,7 @@ MIT
 ## TODO
 
 - Test Frameworks für Back und Frontend
+- Update Backend URL for live deployment?
 - Darkmode Tailwind CSS
 - Guide on creating new features and components etc. 
 - Update this Readme with all the features and how to use them

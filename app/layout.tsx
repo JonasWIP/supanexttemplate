@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="flex flex-col min-h-screen bg-background font-sans antialiased">
+      <body className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased">
         <AuthProvider>
           <NavbarWithAuth 
             logo="SupaNext"

@@ -117,14 +117,19 @@ Before you begin, ensure you have a Supabase project and the Supabase CLI instal
 2. In your GitHub repository, navigate to:
     Repository → Settings → Secrets and Variables → Actions.
 
-3. If not done already, Signup to vercel, Create a Orgnaisation and import this project from your github account.
-Select Next as Framework and hit the "Deploy" button.
+3. If not done already, Signup to vercel, Create a Orgnaisation.
 
 4. Set up an environment (e.g., Production) and add the following secrets:
 
-VERCEL_TOKEN
+VERCEL_TOKEN = A Access token from your vercel account allowing for organization access.
 NEXT_PUBLIC_SUPABASE_URL = https://<project-id>.supabase.co 
 NEXT_PUBLIC_SUPABASE_ANON_KEY = (from https://supabase.com/dashboard/project/<project-id>/settings/api)
+
+Create a new or use a existing Supabase project. You set the db password when creating the project.
+
+SUPABASE_ACCESS_TOKEN | In Supabase → Account Settings → Personal Access Tokens → "New Token" erstellen
+SUPABASE_DB_PASSWORD | In Supabase → Settings → Database → "Connection string" → extrahiere das Passwort
+YOUR_PROJECT_REF | Dein Supabase Projekt-ID
 
 4. Once these secrets are configured, integrate them into your deployment pipeline with your preferred hosting provider (e.g., Vercel).
 

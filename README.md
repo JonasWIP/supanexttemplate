@@ -148,8 +148,6 @@ Currently it runs npm test and checks if for compile errors and if the tests are
 Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
-- Add Testing to CI/CD
-- Expain Testing in readme
 - Remove Debugging Logs and console logs
 
 - Metadata for SEO

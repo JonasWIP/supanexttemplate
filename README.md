@@ -144,6 +144,22 @@ YOUR_PROJECT_REF | Dein Supabase Projekt-ID
 
 Following these steps will prepare your project for both local development and a smooth production deployment.
 
+#### Supabase Authentication
+Supabase uses the "Site URL" to generate email links (like magic links, password reset links, etc.). To change it:
+
+Go to your Supabase Project.
+
+Select your project.
+
+Navigate to Settings → Auth → URL Configuration.
+
+Under Site URL, set it to your Production URL, e.g.:
+
+arduino
+Kopieren
+Bearbeiten
+https://your-production-domain.com
+
 
 
 ## License
@@ -151,7 +167,6 @@ Following these steps will prepare your project for both local development and a
 MIT
 
 ## TODO
-- Email Redirect Links
 - Test Frameworks für Back und Frontend
 - Final Testing and remove hints 
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js

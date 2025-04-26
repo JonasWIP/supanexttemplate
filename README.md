@@ -122,16 +122,9 @@ Select Next as Framework and hit the "Deploy" button.
 
 4. Set up an environment (e.g., Production) and add the following secrets:
 
-    | Secret Name                   | Description                                     | Source/Where to Find                          |
-    |-------------------------------|-------------------------------------------------|-----------------------------------------------|
-    | VERCEL_TOKEN                  | API Token from Vercel                           | vercel.com/account/tokens create new token                       |
-    | VERCEL_PROJECT_ID             | Project ID on Vercel                            | Vercel Dashboard → Project Settings             |
-    | VERCEL_ORG_ID                 | Organization ID on Vercel                       | Vercel Dashboard → Organization Settings        |
-    | NEXT_PUBLIC_SUPABASE_URL      | Public Supabase URL                             | Supabase Dashboard → Project Settings             |
-    | NEXT_PUBLIC_SUPABASE_ANON_KEY | Anonymous API Key for Supabase (Public)         | Supabase Dashboard → API settings                |
-    | SUPABASE_ACCESS_TOKEN         | Supabase CLI Token                              | Supabase Dashboard → Settings → Access Tokens     |
-    | SUPABASE_PROJECT_ID           | Supabase Project ID                             | Supabase Dashboard → Settings → General           |
-    | SUPABASE_DB_PASSWORD (optional) | Supabase database password (if required)     | Provided by Supabase if needed                   |
+VERCEL_TOKEN
+NEXT_PUBLIC_SUPABASE_URL = https://<project-id>.supabase.co 
+NEXT_PUBLIC_SUPABASE_ANON_KEY = (from https://supabase.com/dashboard/project/<project-id>/settings/api)
 
 4. Once these secrets are configured, integrate them into your deployment pipeline with your preferred hosting provider (e.g., Vercel).
 

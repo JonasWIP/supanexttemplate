@@ -88,3 +88,64 @@ export function formatDate(date: Date | string): string {
     day: 'numeric'
   });
 }
+
+/**
+ * Function for making direct Supabase REST API calls
+ * This addresses 406 Not Acceptable errors by including necessary headers
+ */
+export async function fetchSupabaseREST<T = Record<string, unknown>>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  // Get Supabase URL and anon key from env variables
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321';
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseAnonKey) {
+    throw new Error('Supabase anon key is not defined');
+  }
+
+  // Define the required headers for Supabase REST API
+  const defaultHeaders = {
+    'apikey': supabaseAnonKey,
+    'Authorization': `Bearer ${supabaseAnonKey}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Prefer': 'return=representation'
+  };
+
+  // Ensure URL has the correct format
+  const url = path.startsWith('http') 
+    ? path 
+    : `${supabaseUrl}/rest/v1/${path.startsWith('/') ? path.substring(1) : path}`;
+
+  try {
+    console.log(`Fetching from Supabase REST API: ${url}`);
+    
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        ...defaultHeaders,
+        ...(options.headers || {})
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Supabase REST API error: ${response.status} ${response.statusText}`, errorText);
+      throw new ApiError(
+        response.status,
+        `Supabase API Error: ${response.statusText}`,
+        { responseText: errorText }
+      );
+    }
+
+    const data = await response.json();
+    return data as T;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(500, 'An unexpected error occurred with Supabase REST API', { error });
+  }
+}

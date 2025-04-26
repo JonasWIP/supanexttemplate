@@ -1,4 +1,6 @@
 import { createBrowserClient } from '@supabase/ssr';
+import { Database } from './database.types';
+import { User } from '@supabase/supabase-js';
 
 // Supabase client setup
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,20 +12,23 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 // Create a Supabase client
 export const getSupabaseClient = () => {
-  return createBrowserClient(
+  return createBrowserClient<Database>(
     supabaseUrl,
     supabaseAnonKey
   );
 };
 
+// Define database types
+export type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
+
 // Auth helpers
-export async function getCurrentUser() {
+export async function getCurrentUser(): Promise<User | null> {
   const supabase = getSupabaseClient();
   const { data: { session } } = await supabase.auth.getSession();
-  return session?.user;
+  return session?.user || null;
 }
 
-export async function getUserProfile() {
+export async function getUserProfile(): Promise<UserProfile | null> {
   const user = await getCurrentUser();
   
   if (!user) {
@@ -40,14 +45,73 @@ export async function getUserProfile() {
   return data;
 }
 
-export async function signOut() {
+export async function getUserProfileById(userId: string): Promise<UserProfile | null> {
   const supabase = getSupabaseClient();
-  return supabase.auth.signOut();
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+    
+  if (error) {
+    console.error('Error fetching user profile:', error);
+    throw error;
+  }
+  
+  return data;
+}
+
+export async function signOut(): Promise<void> {
+  const supabase = getSupabaseClient();
+  await supabase.auth.signOut();
+}
+
+// Function to create or update user profile
+export async function createOrUpdateUserProfile(
+  userId: string,
+  profileData: Partial<UserProfile>
+): Promise<UserProfile | null> {
+  try {
+    const supabase = getSupabaseClient();
+    
+    // Check if profile exists
+    const { data: existingProfile } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    
+    // Prepare data for insert or update
+    const profileToSave = {
+      id: userId,
+      ...profileData,
+      updated_at: new Date().toISOString(),
+      // Only set created_at if this is a new profile
+      ...(existingProfile ? {} : { created_at: new Date().toISOString() })
+    };
+    
+    // Use upsert to either insert or update
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .upsert(profileToSave)
+      .select()
+      .single();
+      
+    if (error) {
+      console.error('Error creating/updating user profile:', error);
+      return null;
+    }
+    
+    return data;
+  } catch (err) {
+    console.error('Exception in createOrUpdateUserProfile:', err);
+    return null;
+  }
 }
 
 // Data fetching helpers
 export async function fetchFromTable<T = Record<string, unknown>>(
-  tableName: string,
+  tableName: keyof Database['public']['Tables'],
   options?: {
     select?: string;
     eq?: [string, unknown];

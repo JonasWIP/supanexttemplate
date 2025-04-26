@@ -65,7 +65,38 @@ troubleshooting:
 npm install -g supabase@latest
 
 
+## Database Migrations
 
+
+Link local supabase instance to your project with the following command:
+```bash
+npx supabase link
+```
+Select the project you want to link to.
+Enter the password from the creation on supabase.com for the project.
+
+
+Create your first migration with the following command:
+Create tables or use the 001_initial.sql file in the migrations folder to create your tables.
+
+Apply the migration to the database with the following command:
+```bash
+npx supabase db push
+```
+
+Create a migration from the existing database using file with the following command:
+```bash
+npx supabase db diff --schema public --file migrations/001_initial.sql
+```
+
+For Deployment
+supabase db push --project-ref your-prod-project-id
+
+
+npx supabase migration up
+
+//Generate types file from local supabase instance
+npx supabase gen types typescript --db-url "postgresql://postgres:postgres@localhost:54322/postgres" > lib/database.types.ts
 
 
 

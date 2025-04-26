@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getSupabaseClient } from '@/lib/supabase';
+import { getSupabaseClient, createOrUpdateUserProfile } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function RegisterForm() {
@@ -38,7 +38,7 @@ export default function RegisterForm() {
         password,
         options: {
           data: {
-            username,
+            username, // Ensure username is in the metadata
           },
           emailRedirectTo: `${window.location.origin}/api/auth/callback`,
         },
@@ -55,6 +55,19 @@ export default function RegisterForm() {
       if (data?.user && data?.session) {
         // Auto sign-in (email confirmation not required)
         console.log('User registered and logged in:', data.user);
+        
+        // Manually create or update the profile just to be safe
+        try {
+          await createOrUpdateUserProfile(data.user.id, { 
+            username,
+            full_name: username // Using username for full_name initially 
+          });
+          console.log('Profile created successfully');
+        } catch (profileErr) {
+          console.error('Failed to create profile but continuing:', profileErr);
+          // Don't block the registration flow if profile creation fails
+        }
+        
         setSuccessMessage('Registration successful! Redirecting to dashboard...');
         
         // Save to local storage for debugging purposes
@@ -74,6 +87,19 @@ export default function RegisterForm() {
       } else if (data?.user) {
         // Email confirmation required
         console.log('User registered, email confirmation required:', data.user);
+        
+        // Try to create profile even though user isn't confirmed yet
+        try {
+          await createOrUpdateUserProfile(data.user.id, { 
+            username,
+            full_name: username // Using username for full_name initially
+          });
+          console.log('Profile created successfully');
+        } catch (profileErr) {
+          console.error('Failed to create profile but continuing:', profileErr);
+          // Don't block the flow if profile creation fails
+        }
+        
         setSuccessMessage('Registration successful! Please check your email to confirm your account before logging in.');
         
         // For development convenience, store the credentials
@@ -86,7 +112,24 @@ export default function RegisterForm() {
         }));
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to register');
+      // Enhanced error handling
+      let errorMessage = 'Failed to register';
+      
+      if (err.message) {
+        if (err.message.includes('duplicate key')) {
+          if (err.message.includes('username')) {
+            errorMessage = 'Username already exists. Please choose another username.';
+          } else if (err.message.includes('email')) {
+            errorMessage = 'Email already registered. Please use a different email or try logging in.';
+          } else {
+            errorMessage = 'A user with these details already exists.';
+          }
+        } else {
+          errorMessage = err.message;
+        }
+      }
+      
+      setError(errorMessage);
       console.error('Registration error:', err);
     } finally {
       setLoading(false);

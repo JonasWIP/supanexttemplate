@@ -4,11 +4,17 @@ A simplified template for Next.js and Supabase projects with TypeScript and Tail
 
 ## Features
 
-- 🚀 **Next.js** with App Router
-- 🔐 **Supabase** for authentication and database
-- 🎨 **Tailwind CSS** for styling
-- 📝 **TypeScript** for type safety
-- 🧩 **Simple component structure** for easy customization
+- 🚀 **Next.js** with App Router for SSR and static generation.
+- 🔐 **Supabase** for authentication and real-time database.
+- 🎨 **Tailwind CSS** for modern styling with customization.
+- 📝 **TypeScript** for robust type safety.
+- 🧩 **Modular Component Structure** for simple and flexible customization.
+- ✅ **Jest Testing** to ensure quality and catch compile errors early.
+- 🛠 **Seamless Local Development** with integrated Supabase CLI for an effortless setup.
+- 🚀 **Auto Deployment** via Vercel and GitHub Actions with Supabase CI/CD for continuous delivery.
+- 🔄 **Smooth Migration Tasks** using automated scripts for database migrations.
+- Fully deploy-ready template repository with integrated deployment pipelines.
+
 
 ## Getting Started
 

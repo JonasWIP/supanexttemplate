@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Local Supabase
+.supabase/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.directory

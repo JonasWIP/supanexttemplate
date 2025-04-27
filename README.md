@@ -151,9 +151,6 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 
 - Supabase SSR
-- Refactoring of the codebase
-- Remove unused files and folders
-
 - Metadata for SEO
 
 - Update Github Templates

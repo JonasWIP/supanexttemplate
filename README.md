@@ -156,9 +156,11 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 ## TODO
 
 - Supabase SSR
+- Implement Documented External APi Usage in the SSR
 - Metadata for SEO
 - Update Github Templates
 - Update dependencies
+- Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
 - Test the npx creation tool
 - Final Testing 
@@ -168,13 +170,15 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## Future Improvements
 
+- SEO
+- Analytics
+- Mobile Support (Capacitor?)
 - Add roomodes, project specific instructions, fill gaps of knowledge for ai models
 - Add mcp tools for the used ai agent models
 - Project summary
-- Integration in
-- Module hinzufügbar wie Zahlungsdienstleister, Three.js
+- Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment
 - Automating More of the setup process
-- Full integration into a Custom Managment System with frontend and development tools
+- Full integration into a Custom Managment System  with frontend and development tools or mcp usage
 
 
 

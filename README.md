@@ -275,6 +275,7 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Implement Documented External APi Usage in the SSR
 - Update Github Templates
 - Update dependencies
+- Use Material UI instead of tailwind for the template
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
 - Test the npx creation tool

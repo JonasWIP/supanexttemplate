@@ -38,6 +38,7 @@ export default function RootLayout({
             links={[
               { label: 'Home', href: '/' },
               { label: 'Dashboard', href: '/dashboard' },
+              { label: 'Examples', href: '/examples' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },
             ]}

@@ -38,10 +38,16 @@ export async function callSupabaseFunction<T = ResponseData>(
     throw new Error('NEXT_PUBLIC_SUPABASE_URL is not defined');
   }
 
-  // Build the function URL, handling both localhost and production URLs
-  const functionsUrl = supabaseUrl.includes('localhost') || supabaseUrl.includes('127.0.0.1')
-    ? `${supabaseUrl}/functions/v1/${functionName}`
-    : `${supabaseUrl.replace('.supabase.co', '')}/functions/v1/${functionName}`;
+  // Build the function URL, properly handling both localhost and production URLs
+  let functionsUrl;
+  if (supabaseUrl.includes('localhost') || supabaseUrl.includes('127.0.0.1')) {
+    // Local development URL
+    functionsUrl = `${supabaseUrl}/functions/v1/${functionName}`;
+  } else {
+    // Production URL - ensure proper formatting with https://
+    // Format should be: https://[project-ref].supabase.co/functions/v1/[function-name]
+    functionsUrl = `${supabaseUrl}/functions/v1/${functionName}`;
+  }
 
   // Prepare headers
   const requestHeaders: Record<string, string> = {

@@ -20,8 +20,13 @@
     "supabase:dbmigrationup": "npx supabase migration up",
     "supabase:link": "npx supabase link",
     "supabase:dbseed": "npx supabase db seed",
+    "supabase:functions:serve": "npx supabase functions serve",
+    "supabase:functions:serve:hello-world": "npx supabase functions serve hello-world",
     "supabase:functions:deploy": "npx supabase functions deploy",
-    "supabase:functions:serve:local": "npx supabase functions serve hello-world"
+    "supabase:functions:deploy:hello-world": "npx supabase functions deploy hello-world",
+    "supabase:functions:new": "npx supabase functions new",
+    "supabase:functions:list": "npx supabase functions list",
+    "supabase:functions:delete": "npx supabase functions delete"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",

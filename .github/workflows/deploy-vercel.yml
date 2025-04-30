@@ -37,19 +37,39 @@ jobs:
         run: npm run build
 
       # Supabase deployment steps
-      - name: Run Supabase Database Migration
+      - name: Link Supabase Project
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: |
           npm run supabase:link -- --project-ref vadnmtqwjbexgqauzkaa --password $SUPABASE_DB_PASSWORD
+
+      - name: Deploy Database Migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
           npm run supabase:dbpush
 
+      # Enhanced Supabase Functions Deployment
       - name: Deploy Supabase Functions
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
-          npx supabase functions deploy
+          # List existing functions for logging
+          echo "Listing deployed functions:"
+          npm run supabase:functions:list
+          
+          # Deploy all functions
+          echo "Deploying all functions:"
+          npm run supabase:functions:deploy
+          
+          # Or deploy specific functions if needed
+          # echo "Deploying hello-world function:"
+          # npm run supabase:functions:deploy:hello-world
+          
+          # Verify functions were deployed
+          echo "Verifying deployed functions:"
+          npm run supabase:functions:list
         
       # Vercel deployment steps
       - name: Pull Vercel Environment Information

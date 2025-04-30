@@ -15,7 +15,6 @@ A simplified template for Next.js and Supabase projects with TypeScript and Tail
 - 🔄 **Smooth Migration Tasks** using automated scripts for database migrations.
 - Fully deploy-ready template repository with integrated deployment pipelines.
 
-
 ## Getting Started
 
 Follow these steps to set up your project:
@@ -86,16 +85,18 @@ Start your Next.js development server:
 
 If you experience issues with the Supabase CLI, update it globally:
 npm install -g supabase@latest
+
 ## Migration Guide
-npx supabase migration new migration_name
-edit the migration file in supabase/migrations/<timestamp>_migration_name.sql
-then either:
-npx supabase db reset 
-or
+
+npx supabase migration new migration_name  
+edit the migration file in supabase/migrations/<timestamp>_migration_name.sql  
+then either:  
+npx supabase db reset  
+or  
 npx supabase db push
 
-
 ## Scripts
+
 - Check the package.json file for available scripts.
 - Contains Supabase commands for local development and deployment.
 
@@ -123,14 +124,14 @@ Before you begin, ensure you have a Supabase project and the Supabase CLI instal
 
 4. Set up an environment (e.g., Production) and add the following secrets:
 
-VERCEL_TOKEN = A Access token from your vercel account allowing for organization access.
-NEXT_PUBLIC_SUPABASE_URL = https://<project-id>.supabase.co 
+VERCEL_TOKEN = A Access token from your vercel account allowing for organization access.  
+NEXT_PUBLIC_SUPABASE_URL = https://<project-id>.supabase.co  
 NEXT_PUBLIC_SUPABASE_ANON_KEY = (from https://supabase.com/dashboard/project/<project-id>/settings/api)
 
 Create a new or use a existing Supabase project. You set the db password when creating the project.
 
-SUPABASE_ACCESS_TOKEN | In Supabase → Account Settings → Personal Access Tokens → "New Token" erstellen
-SUPABASE_DB_PASSWORD | In Supabase → Settings → Database → "Connection string" → extrahiere das Passwort
+SUPABASE_ACCESS_TOKEN | In Supabase → Account Settings → Personal Access Tokens → "New Token" erstellen  
+SUPABASE_DB_PASSWORD | In Supabase → Settings → Database → "Connection string" → extrahiere das Passwort  
 YOUR_PROJECT_REF | Dein Supabase Projekt-ID
 
 5. Commit any changes to main and push to GitHub. This will trigger a deployment on Vercel and update supabase.
@@ -149,13 +150,110 @@ Supabase uses the "Site URL" to generate email links (e.g., magic links, passwor
   https://your-production-domain.com
   ```
 
+## Supabase Edge Functions
+
+This template includes support for [Supabase Edge Functions](https://supabase.com/docs/guides/functions), which allow you to run server-side code without managing infrastructure.
+
+### Local Development
+
+To work with Edge Functions locally:
+
+1. **Serve all functions locally**:
+   ```bash
+   npm run supabase:functions:serve
+   ```
+   This makes all functions available at `http://localhost:54321/functions/v1/[function-name]`.
+
+2. **Serve a specific function** (e.g., hello-world):
+   ```bash
+   npm run supabase:functions:serve:hello-world
+   ```
+
+3. **Create a new function**:
+   ```bash
+   npm run supabase:functions:new my-function-name
+   ```
+   This will create a new function at `supabase/functions/my-function-name/`.
+
+### Testing Edge Functions
+
+The template includes example code for calling Edge Functions in both server and client components:
+
+- **Server Component**: See `/app/examples/function-call/page.tsx`
+- **Client Component**: See `/app/examples/function-call/ClientFunctionExample.tsx`
+
+You can use the provided utility at `lib/supabase/functions.ts` to call functions:
+
+```typescript
+// Client-side with automatic auth
+const result = await callSupabaseFunction('hello-world', { useAuth: true });
+
+// Server-side with manual auth token
+const result = await callSupabaseFunction('hello-world', { token: session?.access_token });
+```
+
+### Authentication with Edge Functions
+
+Edge Functions can be used with or without authentication:
+
+- **Public Access**: Anyone can call the function
+- **Authenticated**: Requires a valid JWT token from Supabase Auth
+
+The example function `hello-world` shows how to handle both scenarios.
+
+### Deploying Edge Functions
+
+To deploy Edge Functions to your Supabase project:
+
+1. **Deploy all functions**:
+   ```bash
+   npm run supabase:functions:deploy
+   ```
+
+2. **Deploy a specific function** (e.g., hello-world):
+   ```bash
+   npm run supabase:functions:deploy:hello-world
+   ```
+
+3. **List deployed functions**:
+   ```bash
+   npm run supabase:functions:list
+   ```
+
+4. **Delete a function**:
+   ```bash
+   npm run supabase:functions:delete function-name
+   ```
+
+### CI/CD for Edge Functions
+
+This template includes GitHub Actions workflows that automatically deploy your Edge Functions when you push to the main branch. The workflow:
+
+1. Installs dependencies
+2. Runs tests
+3. Links your Supabase project
+4. Deploys database migrations
+5. Deploys Edge Functions
+6. Deploys your Next.js app to Vercel
+
+You can find the workflow configuration in `.github/workflows/deploy-vercel.yml`.
+
+### Production URLs
+
+Once deployed, your functions are available at:
+```
+https://<project-ref>.supabase.co/functions/v1/<function-name>
+```
+
+Replace `<project-ref>` with your Supabase project reference ID.
+
 ## Test
-Currently it runs npm test and checks if for compile errors and if the tests are running.
+
+Currently it runs npm test and checks if for compile errors and if the tests are running.  
 Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Supabase SSR
 - Function Call Example (hello world functions index.ts)
 - Implement Documented External APi Usage in the SSR
 - Update Github Templates
@@ -165,10 +263,8 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Test the npx creation tool
 - Final Testing 
 
-
-
-
 ## Future Improvements
+
 - Metadata for SEO
 - SEO
 - Analytics
@@ -179,10 +275,6 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment
 - Automating More of the setup process
 - Full integration into a Custom Managment System  with frontend and development tools or mcp usage
-
-
-
-
 
 ## License
 

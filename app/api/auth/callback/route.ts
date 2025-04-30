@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
@@ -8,20 +8,27 @@ export async function GET(request: Request) {
   const next = searchParams.get('next') ?? '/';
 
   if (code) {
-    const cookieStore = await cookies();
+    // Create a response that we can modify
+    const response = NextResponse.redirect(`${origin}${next}`);
+    
+    // Create a supabase client with the recommended cookie handling
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
+          async getAll() {
+            const cookieStore = await cookies();
+            return cookieStore.getAll().map((cookie) => ({
+              name: cookie.name,
+              value: cookie.value,
+            }));
           },
-          set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, ...options });
-          },
-          remove(name: string, options: CookieOptions) {
-            cookieStore.set({ name, value: '', ...options });
+          async setAll(cookiesToSet) {
+            await cookies(); // We need to await cookies() even if we don't use the result
+            cookiesToSet.forEach(({ name, value, ...options }) => {
+              response.cookies.set({ name, value, ...options });
+            });
           },
         },
       }
@@ -60,8 +67,11 @@ export async function GET(request: Request) {
     if (error) {
       console.error('Error exchanging code for session:', error);
     }
+    
+    // Return the response with cookies set
+    return response;
   }
 
-  // URL to redirect to after sign in process completes
+  // Redirect if no code is present
   return NextResponse.redirect(`${origin}${next}`);
 }

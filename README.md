@@ -156,8 +156,8 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 ## TODO
 
 - Supabase SSR
+- Function Call Example (hello world functions index.ts)
 - Implement Documented External APi Usage in the SSR
-- Metadata for SEO
 - Update Github Templates
 - Update dependencies
 - Home Page will be a short tutorial for the template, and what to setup and configure
@@ -169,7 +169,7 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 
 ## Future Improvements
-
+- Metadata for SEO
 - SEO
 - Analytics
 - Mobile Support (Capacitor?)

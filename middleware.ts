@@ -1,6 +1,6 @@
 // middleware.ts
-import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { SupabaseClientHelper } from "@/lib/supabase/client";
 
 export async function middleware(request: NextRequest) {
   // Create an unmodified response
@@ -10,26 +10,8 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // Create a Supabase client using the recommended pattern
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll().map(cookie => ({
-            name: cookie.name,
-            value: cookie.value,
-          }));
-        },
-        setAll(cookies) {
-          for (const cookie of cookies) {
-            response.cookies.set(cookie);
-          }
-        },
-      },
-    }
-  );
+  // Create a Supabase client using our helper class
+  const supabase = SupabaseClientHelper.createMiddlewareClient(request, response);
 
   try {
     // Get the current path from the URL

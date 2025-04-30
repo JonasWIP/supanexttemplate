@@ -271,7 +271,9 @@ Currently it runs npm test and checks if for compile errors and if the tests are
 Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
-- Use Material UI instead of tailwind for the template
+
+- shadcn/ui + Tailwind
+- Framer Motion
 - Update dependencies
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
@@ -279,7 +281,7 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Final Testing 
 
 ## Future Improvements
-
+- Include Examples in tests
 - Metadata for SEO
 - SEO
 - Analytics

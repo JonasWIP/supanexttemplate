@@ -132,9 +132,27 @@ Create a new or use a existing Supabase project. You set the db password when cr
 
 SUPABASE_ACCESS_TOKEN | In Supabase → Account Settings → Personal Access Tokens → "New Token" erstellen  
 SUPABASE_DB_PASSWORD | In Supabase → Settings → Database → "Connection string" → extrahiere das Passwort  
-YOUR_PROJECT_REF | Dein Supabase Projekt-ID
+YOUR_PROJECT_REF | Your Supabase Project ID (can be found in the URL of your Supabase dashboard: https://supabase.com/dashboard/project/YOUR_PROJECT_REF)
 
 5. Commit any changes to main and push to GitHub. This will trigger a deployment on Vercel and update supabase.
+
+### Troubleshooting GitHub Workflow Deployments
+
+If you encounter authentication errors during the GitHub Actions workflow, particularly with `supabase:dbpush` command:
+
+1. **Verify your secrets**: Double-check that `SUPABASE_DB_PASSWORD` and `YOUR_PROJECT_REF` are correctly set in GitHub repository secrets.
+
+2. **Password format**: Ensure your database password doesn't contain special characters that might need escaping in the bash script.
+
+3. **Project reference**: Make sure the `YOUR_PROJECT_REF` secret matches exactly with your Supabase project ID.
+
+4. **Access token permissions**: Verify that your Supabase access token has the necessary permissions for database operations.
+
+5. **Manual linking test**: If issues persist, you can test the linking process locally with:
+   ```
+   npx supabase link --project-ref YOUR_PROJECT_REF
+   ```
+   This might provide more specific error messages to help diagnose the issue.
 
 Following these steps will prepare your project for both local development and a smooth production deployment.
 
@@ -254,7 +272,6 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Function Call Example (hello world functions index.ts)
 - Implement Documented External APi Usage in the SSR
 - Update Github Templates
 - Update dependencies

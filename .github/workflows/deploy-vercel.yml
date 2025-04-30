@@ -41,8 +41,9 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          YOUR_PROJECT_REF: ${{ secrets.YOUR_PROJECT_REF }}
         run: |
-          npm run supabase:link -- --project-ref vadnmtqwjbexgqauzkaa --password $SUPABASE_DB_PASSWORD
+          npm run supabase:link -- --project-ref $YOUR_PROJECT_REF --password $SUPABASE_DB_PASSWORD
 
       - name: Deploy Database Migrations
         env:

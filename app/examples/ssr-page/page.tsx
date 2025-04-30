@@ -5,6 +5,13 @@ import { Card } from '@/components/ui/Card';
 import PageHeader from '@/components/layout/PageHeader';
 import PageContainer from '@/components/layout/PageContainer';
 
+// Define type for post objects
+interface Post {
+  id: number;
+  title: string;
+  [key: string]: unknown;
+}
+
 export const dynamic = 'force-dynamic'; // Ensures SSR on every request
 
 async function getServerData() {
@@ -15,7 +22,7 @@ async function getServerData() {
   const { data: { user } } = await supabase.auth.getUser();
   
   // Get some example data from a table - properly handle potential errors
-  let posts = [];
+  let posts: Post[] = [];
   try {
     const { data } = await supabase
       .from('posts')
@@ -54,12 +61,12 @@ export default async function SSRPage() {
           <h2 className="text-xl font-bold mb-4">Data from Supabase</h2>
           {data.posts.length > 0 ? (
             <ul className="list-disc pl-5">
-              {data.posts.map((post: any) => (
+              {data.posts.map((post: Post) => (
                 <li key={post.id}>{post.title}</li>
               ))}
             </ul>
           ) : (
-            <p>No posts found or table doesn't exist.</p>
+            <p>No posts found or table doesn&apos;t exist.</p>
           )}
           <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
             <p className="text-sm font-mono">This data was fetched server-side.</p>

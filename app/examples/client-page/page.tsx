@@ -9,9 +9,16 @@ import Button from '@/components/ui/Button';
 import PageHeader from '@/components/layout/PageHeader';
 import PageContainer from '@/components/layout/PageContainer';
 
+// Define types for user and posts
+interface Post {
+  id: number;
+  title: string;
+  [key: string]: unknown;
+}
+
 export default function ClientPage() {
-  const [user, setUser] = useState<any>(null);
-  const [posts, setPosts] = useState<any[]>([]);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [timestamp, setTimestamp] = useState('');
   const [refreshCount, setRefreshCount] = useState(0);
@@ -46,7 +53,7 @@ export default function ClientPage() {
     }
     
     fetchData();
-  }, [refreshCount]); // Refetch when refreshCount changes
+  }, [refreshCount, supabase]); // Added supabase dependency
   
   // Handler for manual refresh
   const handleRefresh = () => {
@@ -79,12 +86,12 @@ export default function ClientPage() {
             </div>
           ) : posts.length > 0 ? (
             <ul className="list-disc pl-5">
-              {posts.map((post: any) => (
+              {posts.map((post: Post) => (
                 <li key={post.id}>{post.title}</li>
               ))}
             </ul>
           ) : (
-            <p>No posts found or table doesn't exist.</p>
+            <p>No posts found or table doesn&apos;t exist.</p>
           )}
           <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
             <p className="text-sm font-mono">This data was fetched client-side.</p>
@@ -98,7 +105,7 @@ export default function ClientPage() {
             <li>Interactive experience with dynamic data refreshing</li>
             <li>No server reloads needed when refreshing content</li>
             <li>Better for highly interactive interfaces</li>
-            <li>Lower server load (computation happens in user's browser)</li>
+            <li>Lower server load (computation happens in user&apos;s browser)</li>
             <li>SPA-like experience with smoother transitions</li>
           </ul>
         </Card>

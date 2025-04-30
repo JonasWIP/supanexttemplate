@@ -4,17 +4,20 @@
 
 import { SupabaseClientHelper } from './client';
 
+// Define generic type for response data
+type ResponseData = Record<string, unknown>;
+
 /**
  * Call a Supabase Edge Function
  * @param functionName The name of the function to call
  * @param options Optional request options and body
  * @returns Response from the Edge Function
  */
-export async function callSupabaseFunction<T = any>(
+export async function callSupabaseFunction<T = ResponseData>(
   functionName: string,
   options?: {
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
-    body?: any,
+    body?: Record<string, unknown>,
     headers?: Record<string, string>,
     token?: string,
     useAuth?: boolean, // Whether to automatically get auth token
@@ -89,7 +92,8 @@ export async function callSupabaseFunction<T = any>(
       try {
         const parsedError = JSON.parse(errorData);
         throw new Error(parsedError.message || parsedError.error || `HTTP error ${response.status}`);
-      } catch (e) {
+      } catch {
+        // Using empty catch block as we don't need the error parameter
         throw new Error(`HTTP error ${response.status}: ${errorData || response.statusText}`);
       }
     }

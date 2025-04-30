@@ -1,22 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 
+// Define type for post objects
+interface Post {
+  id: number;
+  title: string;
+  created_at?: string;
+  [key: string]: unknown;
+}
+
 export default function ClientInteractiveSection({ initialPostCount }: { initialPostCount: number }) {
   const [newPostTitle, setNewPostTitle] = useState('');
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [clientTimestamp, setClientTimestamp] = useState('');
   
   // Create Supabase client for browser using our helper class
   const supabase = SupabaseClientHelper.createBrowserClient();
 
-  // Fetch latest posts with proper error handling
-  const fetchPosts = async () => {
+  // Fetch latest posts with proper error handling - wrapped in useCallback
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     setClientTimestamp(new Date().toISOString());
     
@@ -34,7 +42,7 @@ export default function ClientInteractiveSection({ initialPostCount }: { initial
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase]);
 
   // Create a new post
   const handleCreatePost = async () => {
@@ -62,7 +70,7 @@ export default function ClientInteractiveSection({ initialPostCount }: { initial
   useEffect(() => {
     setClientTimestamp(new Date().toISOString());
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   return (
     <Card className="p-6 border-l-4 border-blue-500">

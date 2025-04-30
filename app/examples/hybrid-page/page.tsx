@@ -6,6 +6,13 @@ import PageHeader from '@/components/layout/PageHeader';
 import PageContainer from '@/components/layout/PageContainer';
 import ClientInteractiveSection from './ClientInteractiveSection';
 
+// Define type for post objects
+interface Post {
+  id: number;
+  title: string;
+  [key: string]: unknown;
+}
+
 // This is a Server Component
 export default async function HybridPage() {
   // Use our server helper class to create a server client
@@ -15,7 +22,7 @@ export default async function HybridPage() {
   const { data: { user } } = await supabase.auth.getUser();
   
   // Get some example data from a table - properly handle potential errors
-  let posts = [];
+  let posts: Post[] = [];
   try {
     const { data } = await supabase
       .from('posts')
@@ -54,7 +61,7 @@ export default async function HybridPage() {
             <h3 className="font-semibold mb-2">Initial Posts:</h3>
             {(posts && posts.length > 0) ? (
               <ul className="list-disc pl-5">
-                {posts.map((post: any) => (
+                {posts.map((post: Post) => (
                   <li key={post.id}>{post.title}</li>
                 ))}
               </ul>

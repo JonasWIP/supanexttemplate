@@ -154,7 +154,7 @@ npm install -g supabase@latest
 
 ## Current TODOs
 
-- Test the npx creation tool
+- remove unused files from github cache which are now gitignored 
 - Final Testing 
 
 ## Future Improvements

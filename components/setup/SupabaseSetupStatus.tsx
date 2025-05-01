@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Check, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { SupabaseClientHelper } from '@/lib/supabase/client';
 
 export function SupabaseSetupStatus() {
   const [isSetup, setIsSetup] = useState<boolean | null>(null);

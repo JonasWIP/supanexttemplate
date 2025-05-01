@@ -48,7 +48,7 @@ export default function HomePage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex justify-between items-center">
-              <span>Local Development Setup</span>
+              <span>Project Setup Guide</span>
               {/* Overall setup progress */}
               <div className="flex gap-2 items-center text-sm">
                 <span className="text-muted-foreground">Setup Status:</span>
@@ -61,80 +61,138 @@ export default function HomePage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="relative">
+              <h3 className="text-xl font-medium mb-2">Project Creation</h3>
+              <p className="mb-3">Create a new project using the template:</p>
+              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                <code>{`npx create-supabase-next <your-project-name>
+cd <your-project-name>`}</code>
+              </pre>
+            </div>
+
+            <div>
               <h3 className="text-xl font-medium mb-2 flex items-center gap-2">
-                <span>1. Environment Configuration</span>
+                <span>Local Development Setup</span>
                 <SetupStepStatus
                   isCompleted={isSupabaseConfigured}
                   title=""
                   className="ml-2"
                 />
               </h3>
-              <p className="mb-3">Create a <code className="bg-muted px-1.5 py-0.5 rounded text-sm">.env.local</code> file in the project root with:</p>
-              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                <code>{`NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-local-anon-key`}</code>
-              </pre>
+              
+              <div className="pl-4 border-l-2 border-muted-foreground/20 space-y-4 mt-4">
+                <div>
+                  <h4 className="text-lg font-medium mb-2">1. Start Supabase Locally</h4>
+                  <p className="mb-3">Ensure Docker is running, then start Supabase:</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>npm run supabase:start</code>
+                  </pre>
+                  <p className="mt-2">You can access the Supabase Studio at <a href="http://127.0.0.1:54323" target="_blank" rel="noreferrer" className="text-primary hover:underline">http://127.0.0.1:54323</a></p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">2. Configure Environment Variables</h4>
+                  <p className="mb-3">Create a <code className="bg-muted px-1.5 py-0.5 rounded text-sm">.env.local</code> file in the project root with:</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>{`NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key-from-supabase-start>`}</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">3. Start the Development Server</h4>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>npm run dev</code>
+                  </pre>
+                </div>
+              </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-medium mb-2">2. Start Supabase Locally</h3>
-              <p className="mb-3">Ensure Docker is running, then start Supabase:</p>
-              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                <code>npm run supabase:start</code>
-              </pre>
-              <p className="mt-2">You can access the Supabase Studio at <a href="http://127.0.0.1:54323" target="_blank" rel="noreferrer" className="text-primary hover:underline">http://127.0.0.1:54323</a></p>
-            </div>
+              <h3 className="text-xl font-medium mb-2">Production Deployment</h3>
+              
+              <div className="pl-4 border-l-2 border-muted-foreground/20 space-y-4 mt-4">
+                <div>
+                  <h4 className="text-lg font-medium mb-2">1. Commit and Push to GitHub</h4>
+                  <p>Push your project to GitHub to enable CI/CD workflows</p>
+                </div>
 
-            <div>
-              <h3 className="text-xl font-medium mb-2">3. Database Migrations</h3>
-              <p>Apply database migrations and seed data:</p>
-              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                <code>npm run supabase:dbpush
-npm run supabase:dbseed</code>
-              </pre>
-            </div>
+                <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200 dark:border-amber-800 mb-3">
+                  <p className="font-medium text-amber-800 dark:text-amber-300 mb-2">All secrets below need to be added to GitHub repository secrets</p>
+                  <p className="text-amber-700 dark:text-amber-400 text-sm">All of the following steps (2-5) are about obtaining different secrets that need to be added to your GitHub repository&apos;s environment secrets. You&apos;ll gather these values from different sources and add them all to GitHub.</p>
+                </div>
 
-            <div>
-              <h3 className="text-xl font-medium mb-2">4. Start the Development Server</h3>
-              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                <code>npm run dev</code>
-              </pre>
+                <div>
+                  <h4 className="text-lg font-medium mb-2">2. Configure GitHub Repository Secrets</h4>
+                  <p className="mb-3">Navigate to your repository&apos;s Settings → Secrets and Variables → Actions → Manage environment secrets → production → add environment secret:</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>SUPABASE_DB_PASSWORD = Your Supabase database password</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">3. Create a Supabase Project <span className="text-sm font-normal text-muted-foreground">(to get more GitHub secrets)</span></h4>
+                  <p className="mb-3">Create a new project on Supabase:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>Copy the database password during creation</li>
+                    <li>Open the project, click on &quot;Connect&quot; in the navbar</li>
+                    <li>Copy from App-Frameworks section for these GitHub secrets:</li>
+                  </ul>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm mt-2">
+                    <code>{`NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+YOUR_PROJECT_REF (project ID)`}</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">4. Create Supabase Access Token <span className="text-sm font-normal text-muted-foreground">(for another GitHub secret)</span></h4>
+                  <p className="mb-3">Go to Account → Account settings → Access tokens → create a new access token</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>SUPABASE_ACCESS_TOKEN</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">5. Setup Vercel Token <span className="text-sm font-normal text-muted-foreground">(final GitHub secret)</span></h4>
+                  <p className="mb-3">Go to <a href="https://vercel.com/account/settings/tokens" target="_blank" rel="noreferrer" className="text-primary hover:underline">Vercel Account Settings</a> → Create new Token → copy for:</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>VERCEL_TOKEN</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">6. Deploy Your Project</h4>
+                  <p>After adding all required GitHub secrets, commit any changes to trigger the GitHub workflow. After it completes, your site will be live at the Vercel URL.</p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">7. Configure Authentication</h4>
+                  <p>Set your Vercel live URL in your Supabase project dashboard as the redirect link for authentication.</p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Production Deployment Guide</CardTitle>
+            <CardTitle>Connecting Local & Remote Environments</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <h3 className="text-xl font-medium mb-2">1. Set Up GitHub Repository</h3>
-              <p>Push your project to GitHub to enable CI/CD workflows.</p>
-            </div>
+          <CardContent>
+            <p className="mb-4">To connect your local Supabase instance with the production one, you can use scripts defined in the package.json:</p>
+            
+            <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+              <code>{`# Link to your Supabase project
+npx supabase link --project-ref YOUR_PROJECT_REF
 
-            <div>
-              <h3 className="text-xl font-medium mb-2">2. Configure GitHub Secrets</h3>
-              <p className="mb-3">Navigate to your repository&apos;s Settings → Secrets and Variables → Actions, then add:</p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">VERCEL_TOKEN</code> - Access token from your Vercel account with organization access</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">NEXT_PUBLIC_SUPABASE_URL</code> - Your Supabase project URL</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> - Your Supabase anon key</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">SUPABASE_ACCESS_TOKEN</code> - From Supabase Account Settings → Personal Access Tokens</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">SUPABASE_DB_PASSWORD</code> - Your Supabase database password</li>
-                <li><code className="bg-muted px-1.5 py-0.5 rounded text-sm">YOUR_PROJECT_REF</code> - Your Supabase project ID</li>
-              </ul>
-            </div>
+# Pull remote schema to local
+npx supabase db pull
 
-            <div>
-              <h3 className="text-xl font-medium mb-2">3. Configure Supabase Auth URL</h3>
-              <p>In your Supabase Dashboard → Settings → Auth → URL Configuration, set the Site URL to your production domain.</p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-medium mb-2">4. Deploy Your Project</h3>
-              <p>Push changes to the main branch to trigger automatic deployment via GitHub Actions and Vercel.</p>
-            </div>
+# Push local changes to remote
+npx supabase db push`}</code>
+            </pre>
+            
+            <p className="mt-4">Check the package.json file for additional useful scripts and the Documentation & Examples folders for more guides.</p>
           </CardContent>
         </Card>
 
@@ -255,12 +313,14 @@ npm run supabase:dbseed</code>
           </CardContent>
         </Card>
 
+        {/* Rest of the cards remain the same */}
         <Card>
           <CardHeader>
             <CardTitle>Tech Stack Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+              {/* Tech stack content remains the same */}
               <div>
                 <h3 className="text-xl font-medium mb-3">Frontend</h3>
                 <ul className="space-y-2">
@@ -320,56 +380,6 @@ npm run supabase:dbseed</code>
                   </li>
                 </ul>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Developing New Features</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>Follow these best practices when adding new features to your project:</p>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">1. Create Components</h3>
-              <p>Add new components in the <code className="bg-muted px-1.5 py-0.5 rounded text-sm">components/</code> directory, organized by feature or type.</p>
-            </div>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">2. Add Routes</h3>
-              <p>Create new routes in the <code className="bg-muted px-1.5 py-0.5 rounded text-sm">app/</code> directory following Next.js App Router conventions.</p>
-            </div>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">3. Database Changes</h3>
-              <p>For database schema changes:</p>
-              <ol className="list-decimal pl-5 space-y-1">
-                <li>Create a migration: <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm run supabase:migration new my_migration</code></li>
-                <li>Edit the SQL file in <code className="bg-muted px-1.5 py-0.5 rounded text-sm">supabase/migrations/</code></li>
-                <li>Apply changes: <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm run supabase:dbpush</code></li>
-              </ol>
-            </div>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">4. Edge Functions</h3>
-              <p>Create new Supabase Edge Functions:</p>
-              <ol className="list-decimal pl-5 space-y-1">
-                <li>Create a new function: <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm run supabase:functions:new my-function</code></li>
-                <li>Implement your function in <code className="bg-muted px-1.5 py-0.5 rounded text-sm">supabase/functions/my-function/index.ts</code></li>
-                <li>Serve locally: <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm run supabase:functions:serve</code></li>
-                <li>Deploy: <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm run supabase:functions:deploy my-function</code></li>
-              </ol>
-            </div>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">5. Testing</h3>
-              <p>Add tests in the appropriate <code className="bg-muted px-1.5 py-0.5 rounded text-sm">__tests__</code> directory and run with <code className="bg-muted px-1.5 py-0.5 rounded text-sm">npm test</code>.</p>
-            </div>
-            
-            <div className="space-y-2">
-              <h3 className="text-xl font-medium">6. Documentation</h3>
-              <p>Document new features or changes in the <code className="bg-muted px-1.5 py-0.5 rounded text-sm">docs/</code> directory.</p>
             </div>
           </CardContent>
         </Card>

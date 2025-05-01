@@ -3,17 +3,26 @@ import { Database } from './database.types';
 import { User } from '@supabase/supabase-js';
 
 // Supabase client setup
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// Using optional chaining to provide fallback values, preventing undefined when environment variables are missing
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-// Create a Supabase client - will throw if environment variables are missing
+// Create a Supabase client
 export const getSupabaseClient = () => {
-  // If environment variables are missing, throw an error
-  if (!supabaseUrl || !supabaseAnonKey) {
+  // If environment variables are missing or invalid, throw a clear error
+  if (!supabaseUrl || supabaseUrl === 'undefined' || !supabaseAnonKey || supabaseAnonKey === 'undefined') {
     throw new Error('Missing Supabase environment variables. Make sure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set.');
   }
   
-  // Create the client with the available environment variables
+  // Validate URL format to prevent "Failed to construct URL" errors
+  try {
+    new URL(supabaseUrl);
+  } catch (error) {
+    console.error('Invalid Supabase URL:', error);
+    throw new Error(`Invalid Supabase URL format: ${supabaseUrl}. Please check your environment variables.`);
+  }
+  
+  // Create the client with the validated environment variables
   return createBrowserClient<Database>(
     supabaseUrl,
     supabaseAnonKey

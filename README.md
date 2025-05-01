@@ -44,20 +44,13 @@ npx create-supabase-next <project-name>
 
 # Or with custom template
 npx create-supabase-next --template <template-url>
-
-# Navigate to project directory
-cd <project-name>
-
-# Install dependencies
-npm install
 ```
 
-### Running Local Development Environment
+### Local Setup
 
 1. **Start Supabase** (ensure Docker is running):
    ```bash
    npm run supabase:start
-   # Or directly: npx supabase start
    ```
 
 2. **Configure Environment Variables**:
@@ -76,13 +69,58 @@ npm install
    - Next.js: http://localhost:3000
    - Supabase Studio: http://127.0.0.1:54323
 
+### Deployment
+
+> **Important Note:** Steps 2-5 below are about gathering different secrets that all need to be added to your GitHub repository as environment secrets. You'll be collecting these values from different sources but adding them all to the same place in GitHub.
+
+1. **Commit and push to GitHub**
+
+2. **Set up GitHub environment for secrets**:
+   - Go to Settings → Secrets and Variables → Actions
+   - Under Manage environment secrets → production → add environment secret
+
+3. **Create a new Supabase project and gather secrets**:
+   - Create a project and copy the database password
+   - Add to GitHub secrets: `SUPABASE_DB_PASSWORD`
+   - Open the project, click on "Connect" in the navbar
+   - Copy credentials from App-Frameworks section for these GitHub secrets:
+     ```
+     NEXT_PUBLIC_SUPABASE_URL
+     NEXT_PUBLIC_SUPABASE_ANON_KEY
+     YOUR_PROJECT_REF (your Supabase project ID)
+     ```
+
+4. **Create Supabase Access Token for GitHub secrets**:
+   - Go to Account → Account settings → Access tokens
+   - Create a new token (name it "github" or similar) 
+   - Add to GitHub secrets: `SUPABASE_ACCESS_TOKEN`
+
+5. **Setup Vercel Token for GitHub secrets**:
+   - Go to https://vercel.com/account/settings/tokens
+   - Create a new token (name it "github" or similar)
+   - Add to GitHub secrets: `VERCEL_TOKEN`
+
+6. **Deploy**:
+   - After adding all GitHub secrets, commit changes to trigger the GitHub workflow
+   - After it finishes, your site will be live at the Vercel URL
+
+7. **Configure Auth Redirect**:
+   - Set your Vercel live URL in your Supabase project dashboard as the redirect link for authentication
+
+### Connect Local and Remote Environments
+
+To connect your local Supabase instance with the public one, use the npm tasks in package.json:
+
+```bash
+# Link to your Supabase project
+npx supabase link --project-ref YOUR_PROJECT_REF
+```
+
 ## Database Migrations
 
 ```bash
 # Create a new migration
 npx supabase migration new migration_name
-
-# Edit the migration file in supabase/migrations/<timestamp>_migration_name.sql
 
 # Apply migrations
 npx supabase db reset  # For development (destructive)
@@ -90,25 +128,7 @@ npx supabase db reset  # For development (destructive)
 npx supabase db push   # For production
 ```
 
-## Deployment
-
-### Setup
-
-1. Push your repository to GitHub
-2. Configure GitHub repository secrets under Settings → Secrets and Variables → Actions:
-
-   ```
-   VERCEL_TOKEN = Your Vercel access token with organization access
-   NEXT_PUBLIC_SUPABASE_URL = https://<project-id>.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY = Your Supabase anon key
-   SUPABASE_ACCESS_TOKEN = Your Supabase personal access token
-   SUPABASE_DB_PASSWORD = Your Supabase database password
-   YOUR_PROJECT_REF = Your Supabase project ID
-   ```
-
-3. Push changes to main branch to trigger deployment
-
-### Supabase Edge Functions
+## Supabase Edge Functions
 
 This template includes support for [Supabase Edge Functions](https://supabase.com/docs/guides/functions).
 
@@ -116,22 +136,12 @@ This template includes support for [Supabase Edge Functions](https://supabase.co
 # Serve all functions locally
 npm run supabase:functions:serve
 
-# Serve a specific function
-npm run supabase:functions:serve:hello-world
-
 # Create a new function
 npm run supabase:functions:new my-function-name
 
 # Deploy all functions
 npm run supabase:functions:deploy
-
-# Deploy a specific function
-npm run supabase:functions:deploy:hello-world
 ```
-
-Edge Functions can be called from server or client components - see examples in:
-- Server: `/app/examples/function-call/page.tsx`
-- Client: `/app/examples/function-call/ClientFunctionExample.tsx`
 
 ## Troubleshooting
 
@@ -152,11 +162,6 @@ npm install -g supabase@latest
 2. Go to Settings → Auth → URL Configuration
 3. Update "Site URL" with your production domain
 
-## Current TODOs
-
-- remove unused files from github cache which are now gitignored 
-- Final Testing 
-
 ## Future Improvements
 - https://magicui.design/docs/components/marquee magicui ?
 - Tests for Utisl and functions / auth / unauthenticated
@@ -173,6 +178,7 @@ npm install -g supabase@latest
 - Automating More of the setup process
 - Full integration into a Custom Managment System  with frontend and development tools or mcp usage
 - Libraries to look at : https://uiverse.io/, https://ludo.ai/, https://spacetimedb.com/, https://magicui.design/docs/components/marquee, https://github.com/Tencent/Hunyuan3D-2 (or simmilar game asset mcps)
+
 ## License
 
 MIT

@@ -9,140 +9,135 @@ Before you begin, make sure you have the following installed:
 - [Node.js](https://nodejs.org/) (version 18 or later)
 - [npm](https://www.npmjs.com/) (usually comes with Node.js)
 - [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/) (for local Supabase development)
+- A [GitHub](https://github.com/) account (for deployment)
 - A [Supabase](https://supabase.com/) account (free tier is fine for development)
+- A [Vercel](https://vercel.com/) account (for deployment)
 
-## Setup Steps
+## Setup Process
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/supanexttemplate.git
-cd supanexttemplate
-```
-
-### 2. Install Dependencies
+### Creating Your Project
 
 ```bash
-npm install
+# Create a new project using the template
+npx create-supabase-next <your-project-name>
+
+# Navigate to the project directory
+cd <your-project-name>
 ```
 
-### 3. Set Up Supabase
+### Local Development Setup
 
-1. Create a new project on [Supabase](https://app.supabase.com/)
-2. Once your project is created, go to Project Settings > API
-3. Copy the "URL" and "anon public" key
-
-### 4. Configure Environment Variables
-
-1. Create a `.env.local` file in the root of your project
-2. Add the following environment variables:
-
-```
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-### 5. Initialize the Database
-
-The template includes database schema migrations and seed data in the `/supabase` folder.
-
-1. Install the Supabase CLI (if you haven't already):
+1. **Start Supabase locally** (ensure Docker is running):
    ```bash
-   npm install -g supabase
+   npm run supabase:start
+   ```
+   This will start a local Supabase instance and output the URL and anon key.
+
+2. **Configure Environment Variables**:
+   Create a `.env.local` file in the project root with:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key-from-supabase-start>
    ```
 
-2. Link to your Supabase project:
+3. **Start the Development Server**:
    ```bash
-   supabase link --project-ref your-project-ref
+   npm run dev
    ```
 
-3. Apply the migrations:
-   ```bash
-   supabase db push
-   ```
+4. **Access Your Development Environment**:
+   - Next.js application: [http://localhost:3000](http://localhost:3000)
+   - Supabase Studio: [http://127.0.0.1:54323](http://127.0.0.1:54323)
 
-### 6. Run the Development Server
+### Production Deployment
+
+> **Important:** All of the steps below (except 1 and 6-7) are about gathering different secrets that need to be added to your GitHub repository's environment secrets. You're essentially collecting values from different sources and adding them to GitHub in one place.
+
+1. **Commit and push your project to GitHub**
+
+2. **Configure GitHub Repository Secrets**:
+   - Go to your repository on GitHub
+   - Navigate to Settings → Secrets and Variables → Actions
+   - Under "Manage environment secrets" → production → add environment secret:
+   
+   This is where you'll add all the secrets from the following steps.
+
+3. **Create a Supabase project and gather secrets**:
+   - Go to [Supabase Dashboard](https://app.supabase.com/)
+   - Create a new project and copy the database password during creation
+   - After project creation, click on "Connect" in the navbar
+   - Copy credentials from the "App-Frameworks" section for these GitHub secrets:
+     ```
+     SUPABASE_DB_PASSWORD = Your Supabase database password
+     NEXT_PUBLIC_SUPABASE_URL = Your Supabase project URL
+     NEXT_PUBLIC_SUPABASE_ANON_KEY = Your Supabase anon key
+     YOUR_PROJECT_REF = Your Supabase project ID
+     ```
+
+4. **Create Supabase Access Token for another GitHub secret**:
+   - Go to Account → Account settings → Access tokens
+   - Create a new access token (name it "github" or similar)
+   - Copy the token and add it as a GitHub repository secret:
+     ```
+     SUPABASE_ACCESS_TOKEN
+     ```
+
+5. **Setup Vercel Token for the final GitHub secret**:
+   - Go to [Vercel Account Settings](https://vercel.com/account/settings/tokens)
+   - Create a new token (name it "github" or similar)
+   - Select your scope and set no expiration
+   - Copy the token and add it as a GitHub repository secret:
+     ```
+     VERCEL_TOKEN
+     ```
+
+6. **Trigger Deployment**:
+   - After adding all required GitHub secrets, commit and push changes to your repository
+   - The GitHub workflow will automatically deploy your application
+   - After deployment, you can access your site via the Vercel URL
+
+7. **Configure Authentication Redirect**:
+   - Set your Vercel live URL in your Supabase project dashboard as the redirect link for authentication
+   - Go to Supabase Dashboard → your project → Authentication → URL Configuration
+   - Update the Site URL and redirect URLs
+
+## Connecting Local and Production Environments
+
+To sync your local Supabase instance with the production database:
 
 ```bash
-npm run dev
+# Link local CLI to your Supabase project
+npx supabase link --project-ref YOUR_PROJECT_REF
+
+# Pull the remote database schema to local
+npx supabase db pull
+
+# Push local changes to remote
+npx supabase db push
 ```
 
-Your application should now be running at [http://localhost:3000](http://localhost:3000)
-
-## What's Next?
-
-Now that you have the template running, here are some things you can explore:
-
-### Project Structure Tour
-
-- `/app` contains all the pages and layouts using Next.js App Router
-- `/components` contains reusable React components
-- `/lib` contains utility functions and configurations
-
-### Explore Example Pages
-
-- Visit `/examples` to see demonstrations of different features
-- Check out `/dashboard` to see a protected route with user profile
-
-### Authentication
-
-- Try registering a new user at `/register`
-- Login with your credentials at `/login`
-- See how protected routes work by visiting `/dashboard`
-
-### Customize the Theme
-
-1. Open `/lib/themes.ts` to see the available themes
-2. Visit `/examples/themes` to preview and switch between themes
-3. Explore creating your own theme by adding a new theme definition
-
-## Customization
-
-### Project Branding
-
-1. Update the site title and metadata in `app/layout.tsx`
-2. Replace the logo in `components/Navbar.tsx`
-3. Customize the primary colors in `lib/themes.ts`
-
-### Navigation
-
-Modify the navigation links in `components/Navbar.tsx` to match your project's structure.
-
-### Styling
-
-The project uses Tailwind CSS for styling. You can customize the theme in `tailwind.config.js`.
+Check the package.json file for additional useful scripts.
 
 ## Troubleshooting
 
-### Authentication Issues
+### Local Development Issues
 
-If you're having problems with authentication:
+- **Docker problems**: Ensure Docker is running and has sufficient resources allocated
+- **Port conflicts**: Check if ports 3000, 54321, or 54323 are already in use
+- **Supabase CLI errors**: Make sure you have the latest version installed
 
-1. Check that your Supabase URL and anon key are correct in `.env.local`
-2. Make sure the Supabase project has Auth enabled in the dashboard
-3. Check if email confirmations are required (can be disabled in Supabase dashboard)
+### Deployment Issues
 
-### Database Errors
-
-If you encounter database errors:
-
-1. Check that your database schema matches what the application expects
-2. Run `supabase db reset` to reset your database to match the migrations
-3. Check the Supabase dashboard for any policy restrictions
-
-### Styling Problems
-
-If styles aren't working as expected:
-
-1. Make sure you've installed all dependencies with `npm install`
-2. Check that Tailwind is properly configured
-3. Verify that your theme is correctly set up in `lib/themes.ts`
+- **GitHub Actions failures**: Check workflow logs for specific error messages
+- **Vercel deployment errors**: Ensure all environment variables are correctly set
+- **Supabase connection issues**: Verify the correct project ID and credentials are used
 
 ## Getting Help
 
-If you're stuck, try these resources:
+If you encounter issues not covered in this guide:
 
-- Check the [documentation](./README.md) for more detailed guides
-- Look at the example implementations in the `/app/examples` directory
-- Consult the official docs for [Next.js](https://nextjs.org/docs), [Supabase](https://supabase.com/docs), and [Tailwind CSS](https://tailwindcss.com/docs)
-- Join the [Supabase Discord](https://discord.supabase.com) or [Next.js Discord](https://discord.gg/nextjs) for community help
+- Check the comprehensive documentation in the `/docs` directory
+- Explore the example implementations in the `/app/examples` directory
+- Visit the [Supabase Documentation](https://supabase.com/docs) or [Next.js Documentation](https://nextjs.org/docs)
+- Join the [Supabase Discord](https://discord.supabase.com) community

@@ -272,7 +272,6 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Refactor the organisation and directory structure of the project / Remove unused files and folders
 - Setup Tests for every page
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
@@ -281,13 +280,16 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Final Testing 
 
 ## Future Improvements
+- https://magicui.design/docs/components/marquee magicui ?
+- Tests for Utisl and functions / auth / unauthenticated
+- Add more examples for Edge Functions
 - Metadata for SEO
 - SEO
 - Analytics
 - Mobile Support (Capacitor?)
 - Include knowledge gaps for ai models 
 - Revampl the documentation to explain/summarize the project for ai models
-- Add roomodes, project specific instructions, fill gaps of knowledge for ai models
+- Add roomodes, project specific instructions, fill gaps of knowledge for ai models (context7,claude-task-master,https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
 - Add mcp tools for the used ai agent models
 - Project summary
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment

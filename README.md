@@ -278,18 +278,17 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Setup Tests for every page
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
-
-
 - Update / documentation and documentation structure
 - Test the npx creation tool
 - Final Testing 
 
 ## Future Improvements
-- Include Examples in tests
 - Metadata for SEO
 - SEO
 - Analytics
 - Mobile Support (Capacitor?)
+- Include knowledge gaps for ai models 
+- Revampl the documentation to explain/summarize the project for ai models
 - Add roomodes, project specific instructions, fill gaps of knowledge for ai models
 - Add mcp tools for the used ai agent models
 - Project summary

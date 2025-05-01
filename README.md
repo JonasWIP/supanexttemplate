@@ -154,7 +154,6 @@ npm install -g supabase@latest
 
 ## Current TODOs
 
-- Remove issues, warnings from supabase and compile, setup
 - Test the npx creation tool
 - Final Testing 
 

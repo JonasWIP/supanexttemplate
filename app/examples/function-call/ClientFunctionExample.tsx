@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
 import { callSupabaseFunction } from '@/lib/supabase/functions';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { uiStyles } from '@/lib/ui-styles';
 

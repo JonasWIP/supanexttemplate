@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import FormAlert from './FormAlert';
 import FormDivider from './FormDivider';

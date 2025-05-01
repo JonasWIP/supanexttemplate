@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 
 type NavbarProps = {
   logo?: string;

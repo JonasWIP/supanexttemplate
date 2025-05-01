@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 // Define type for post objects

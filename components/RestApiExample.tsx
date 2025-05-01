@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Database } from '../lib/database.types';
 import { uiStyles } from '@/lib/ui-styles';
-import { Button } from './ui/Button';
+import { Button } from './ui/button';
 
 // Define type for user profile based on database schema
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
@@ -72,7 +72,7 @@ export default function RestApiExample() {
       </Button>
       
       {error && (
-        <div className={`mt-4 p-3 rounded ${uiStyles.bg.error} ${uiStyles.text.error}`}>
+        <div className={`mt-4 p-3 rounded bg-red-100 dark:bg-red-900/20 ${uiStyles.text.error} ${uiStyles.border.error}`}>
           Error: {error}
         </div>
       )}

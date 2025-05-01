@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button } from '../ui/Button';
+import { Button } from '../ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 
 interface DashboardActionsProps {

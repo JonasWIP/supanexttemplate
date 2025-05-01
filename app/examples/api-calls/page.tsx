@@ -55,7 +55,7 @@ const { data } = await supabase.from('table').select('*');`}
           </div>
         </Card>
 
-        <ClientApiExample />
+        <ClientApiExample serverDataCount={5} />
       </div>
     </PageContainer>
   );

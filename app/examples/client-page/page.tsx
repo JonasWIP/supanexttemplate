@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 // Fix imports for PageHeader and PageContainer

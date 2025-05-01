@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PageContainer from '@/components/layout/PageContainer';
 import PageHeader from '@/components/layout/PageHeader';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 
 export const metadata = {
   title: 'Examples Overview | SupaNext Template',

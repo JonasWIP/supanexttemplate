@@ -1,5 +1,5 @@
 import { SupabaseServerHelper } from '@/lib/supabase/server-client';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 
 // Fix imports for PageHeader and PageContainer
 import PageHeader from '@/components/layout/PageHeader';

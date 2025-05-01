@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '../ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 
 interface DashboardActionsProps {
   onSignOut: () => Promise<void>;

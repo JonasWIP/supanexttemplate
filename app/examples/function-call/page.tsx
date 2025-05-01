@@ -1,9 +1,9 @@
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import PageContainer from '@/components/layout/PageContainer';
 import PageHeader from '@/components/layout/PageHeader';
 import { SupabaseServerHelper } from '@/lib/supabase/server-client';
 import ClientFunctionExample from './ClientFunctionExample';
-import { CodeBlock } from '@/components/ui/CodeBlock';
+import { CodeBlock } from '@/components/ui/codeblock';
 import { uiStyles } from '@/lib/ui-styles';
 
 // Define metadata for this page

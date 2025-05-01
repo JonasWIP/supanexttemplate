@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
 import { callSupabaseFunction } from '@/lib/supabase/functions';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CodeBlock } from '@/components/ui/CodeBlock';
+import { CodeBlock } from '@/components/ui/codeblock';
 import { uiStyles } from '@/lib/ui-styles';
 
 type FunctionResponse = {

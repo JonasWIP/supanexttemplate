@@ -108,7 +108,7 @@ export const ThemeShowcase = () => {
             </div>
             <div>
               <h4 className="text-sm text-muted-foreground mb-1">Mono Font</h4>
-              <p className="font-mono text-sm">const example = "The quick brown fox";</p>
+              <p className="font-mono text-sm">const example = &quot;The quick brown fox&quot;;</p>
             </div>
           </div>
         </Card>

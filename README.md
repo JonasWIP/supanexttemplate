@@ -272,9 +272,10 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Home Page will be a short tutorial for the template, and what to setup and configure
-- Remove issues, warnings from supabase and compile, setup
+
 - Update / documentation and documentation structure
+- Refactor existing pages to be uniform in terms of styling, components, and layout etc. Reduce the overhead of the pages and components and improve general styling uniformity acreoss the project.
+- Remove issues, warnings from supabase and compile, setup
 - Test the npx creation tool
 - Final Testing 
 

@@ -8,6 +8,9 @@ import UserProfile from '@/components/dashboard/UserProfile';
 import DashboardActions from '@/components/dashboard/DashboardActions';
 import PageContainer from '@/components/layout/PageContainer';
 import PageHeader from '@/components/layout/PageHeader';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 // Define Auth User type separately from the database UserProfile type
 type AuthUser = {
@@ -52,11 +55,6 @@ export default function DashboardPage() {
     loadUserData();
   }, [router, setError]);
 
-  // Show error state if needed
-  if (error) {
-    console.warn('Error state:', error);
-  }
-
   const handleSignOut = async () => {
     await signOut();
     router.push('/login');
@@ -64,9 +62,30 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <PageContainer>
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <p className="text-lg dark:text-white">Loading...</p>
+      <PageContainer maxWidth="lg">
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin inline-block w-8 h-8 border-4 border-current border-t-transparent text-primary rounded-full mb-4" role="status" aria-label="loading"></div>
+            <p className="text-lg">Loading dashboard data...</p>
+          </div>
+        </div>
+      </PageContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <PageContainer maxWidth="lg">
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle className="text-destructive">Error Loading Dashboard</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="mb-4">{error}</p>
+              <Button onClick={() => window.location.reload()}>Try Again</Button>
+            </CardContent>
+          </Card>
         </div>
       </PageContainer>
     );
@@ -83,10 +102,45 @@ export default function DashboardPage() {
         {/* User Information */}
         <div className="md:col-span-2 space-y-6">
           <UserProfile user={user} profile={profile} />
-          <DashboardActions onSignOut={handleSignOut} />
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Links</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Link href="/examples">
+                <Button variant="secondary" className="w-full">
+                  View Examples
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button variant="outline" className="w-full">
+                  Home Page
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
         
-        
+        {/* Actions Panel */}
+        <div className="space-y-6">
+          <DashboardActions onSignOut={handleSignOut} />
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Account Status</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center mb-4">
+                <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                <span>Active</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Your account is in good standing and has full access to all features.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </PageContainer>
   );

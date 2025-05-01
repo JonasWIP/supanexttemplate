@@ -8,7 +8,7 @@ describe('HomePage', () => {
     // Check if main heading exists
     expect(screen.getByText('Welcome to SupaNext Template')).toBeInTheDocument();
     
-    // Check for sub-heading
-    expect(screen.getByText('A modern template using Next.js and Supabase.')).toBeInTheDocument();
+    // Check for sub-heading with updated text
+    expect(screen.getByText('A modern, production-ready template using Next.js and Supabase with TypeScript and Tailwind CSS.')).toBeInTheDocument();
   });
 });

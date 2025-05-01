@@ -338,7 +338,12 @@ describe('UIComponentsPage', () => {
     
     // Check for headings of different UI component sections using more specific selectors
     expect(screen.getByRole('heading', { name: 'Input Controls' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Buttons' })).toBeInTheDocument();
+    
+    // Look for the specific card title with 'Buttons' text instead of using test ID alone
+    const cardTitles = screen.getAllByTestId('ui-cardtitle');
+    const buttonsTitle = cardTitles.find(element => element.textContent === 'Buttons');
+    expect(buttonsTitle).toBeInTheDocument();
+    
     expect(screen.getByRole('heading', { name: 'Form Controls' })).toBeInTheDocument();
     
     // Find display components tab content

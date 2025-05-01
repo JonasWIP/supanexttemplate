@@ -273,8 +273,8 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 ## TODO
 
 
-- Update / documentation and documentation structure
-- Refactor existing pages to be uniform in terms of styling, components, and layout etc. Reduce the overhead of the pages and components and improve general styling uniformity acreoss the project.
+- Update / documentation and documentation structure. Some of the styling guide needs to be updated. Look into the current implementation and update the styling guides if necessary. Create a good organized documentation structure that allows user guides and overview of the project.
+
 - Remove issues, warnings from supabase and compile, setup
 - Test the npx creation tool
 - Final Testing 
@@ -295,7 +295,7 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment
 - Automating More of the setup process
 - Full integration into a Custom Managment System  with frontend and development tools or mcp usage
-
+- Libraries to look at : https://uiverse.io/, https://ludo.ai/, https://spacetimedb.com/, https://magicui.design/docs/components/marquee, https://github.com/Tencent/Hunyuan3D-2 (or simmilar game asset mcps)
 ## License
 
 MIT

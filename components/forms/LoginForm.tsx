@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
-import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import FormAlert from './FormAlert';
@@ -79,9 +78,9 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="w-full max-w-md p-8 space-y-8">
+    <div className="space-y-6">
       <div className="text-center">
-        <h2 className="mt-6 text-3xl font-bold text-foreground">
+        <h2 className="text-2xl font-bold">
           Sign in to your account
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -114,10 +113,10 @@ export default function LoginForm() {
         } 
       />
 
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-4">
-          <div className="space-y-1">
-            <label htmlFor="email" className="block text-sm font-medium text-foreground">
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-medium">
               Email address
             </label>
             <Input
@@ -129,18 +128,17 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full"
             />
           </div>
 
-          <div className="space-y-1">
-            <div className="flex justify-between mb-1">
-              <label htmlFor="password" className="block text-sm font-medium text-foreground">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label htmlFor="password" className="block text-sm font-medium">
                 Password
               </label>
               <Link
                 href="/forgot-password"
-                className="text-sm text-primary hover:text-primary/80"
+                className="text-xs text-primary hover:text-primary/80"
               >
                 Forgot password?
               </Link>
@@ -154,7 +152,6 @@ export default function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full"
             />
           </div>
         </div>
@@ -184,6 +181,6 @@ export default function LoginForm() {
         </svg>
         Google
       </Button>
-    </Card>
+    </div>
   );
 }

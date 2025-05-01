@@ -28,6 +28,7 @@ import {
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import PageContainer from '@/components/layout/PageContainer';
 import PageHeader from '@/components/layout/PageHeader';
+import { cn } from '@/lib/utils';
 
 export default function UIComponentsPage() {
   const [progress, setProgress] = useState(45);
@@ -35,18 +36,14 @@ export default function UIComponentsPage() {
   const [alignment, setAlignment] = useState("center");
   
   return (
-    <PageContainer>
-      <PageHeader title="UI Components Showcase" />
-      
-      <div className="mb-6">
-        <p className="text-muted-foreground">
-          This page showcases various UI components available in the project. 
-          Explore these components to understand how they work and how they can be used in your application.
-        </p>
-      </div>
+    <PageContainer maxWidth="xl">
+      <PageHeader 
+        title="UI Components Showcase" 
+        description="This page showcases various UI components available in the project. Explore these components to understand how they work and how they can be used in your application."
+      />
       
       <Tabs defaultValue="inputs" className="w-full mb-12">
-        <TabsList className="mb-4">
+        <TabsList className="mb-4" data-testid="tabs-container-inputs">
           <TabsTrigger value="inputs">Input Controls</TabsTrigger>
           <TabsTrigger value="display">Display Components</TabsTrigger>
           <TabsTrigger value="feedback">Feedback Components</TabsTrigger>
@@ -54,41 +51,45 @@ export default function UIComponentsPage() {
         </TabsList>
         
         {/* Input Controls Tab */}
-        <TabsContent value="inputs" className="space-y-8">
+        <TabsContent value="inputs" data-testid="tab-content-inputs" className="space-y-8">
           <h2 className="text-2xl font-bold mb-4">Input Controls</h2>
           
           {/* Buttons Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Buttons</h3>
-            <div className="flex flex-wrap gap-4">
-              <Button>Default Button</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="destructive">Destructive</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="link">Link Button</Button>
-            </div>
-            <div className="flex flex-wrap gap-4 mt-2">
-              <Button size="sm">Small</Button>
-              <Button>Default</Button>
-              <Button size="lg">Large</Button>
-              <Button disabled>Disabled</Button>
-              <Button variant="outline" className="gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus">
-                  <path d="M12 5v14M5 12h14"/>
-                </svg>
-                With Icon
-              </Button>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Buttons</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex flex-wrap gap-4">
+                <Button>Default Button</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="destructive">Destructive</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="link">Link Button</Button>
+              </div>
+              <div className="flex flex-wrap gap-4 mt-2">
+                <Button size="sm">Small</Button>
+                <Button>Default</Button>
+                <Button size="lg">Large</Button>
+                <Button disabled>Disabled</Button>
+                <Button variant="outline" className="gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                  With Icon
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
           
           {/* Form Controls Section */}
-          <section className="space-y-4">
+          <div className="space-y-4">
             <h3 className="text-xl font-medium">Form Controls</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Input fields */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Text Input</CardTitle>
                 </CardHeader>
@@ -105,7 +106,7 @@ export default function UIComponentsPage() {
               </Card>
               
               {/* Checkbox and Switch */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Toggle Controls</CardTitle>
                 </CardHeader>
@@ -126,7 +127,7 @@ export default function UIComponentsPage() {
               </Card>
               
               {/* Radio Group */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Radio Group</CardTitle>
                 </CardHeader>
@@ -149,7 +150,7 @@ export default function UIComponentsPage() {
               </Card>
               
               {/* Select */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Select</CardTitle>
                 </CardHeader>
@@ -170,7 +171,7 @@ export default function UIComponentsPage() {
               </Card>
               
               {/* Slider */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Slider</CardTitle>
                 </CardHeader>
@@ -191,7 +192,7 @@ export default function UIComponentsPage() {
               </Card>
               
               {/* Toggle Group */}
-              <Card className="shadow-sm">
+              <Card>
                 <CardHeader>
                   <CardTitle>Toggle Group</CardTitle>
                 </CardHeader>
@@ -222,213 +223,243 @@ export default function UIComponentsPage() {
                 </CardContent>
               </Card>
             </div>
-          </section>
+          </div>
         </TabsContent>
         
         {/* Display Components Tab */}
-        <TabsContent value="display" className="space-y-8">
+        <TabsContent value="display" data-testid="tab-content-display" className="space-y-8">
           <h2 className="text-2xl font-bold mb-4">Display Components</h2>
           
           {/* Cards Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Cards</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Basic Card</CardTitle>
-                  <CardDescription>A simple card with header and content</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>This is the main content of the card where you can put any information.</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Card with Footer</CardTitle>
-                  <CardDescription>A card with actions in the footer</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>Cards are versatile containers that can be used for various types of content.</p>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline" size="sm">Cancel</Button>
-                  <Button size="sm">Save</Button>
-                </CardFooter>
-              </Card>
-              
-              <Card>
-                <CardHeader className="bg-muted/50">
-                  <CardTitle>Featured Card</CardTitle>
-                  <CardDescription>With custom styling</CardDescription>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Badge>Featured</Badge>
-                    <Badge variant="outline">New</Badge>
-                  </div>
-                  <p>You can easily customize card components to match your design requirements.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cards</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Basic Card</CardTitle>
+                    <CardDescription>A simple card with header and content</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p>This is the main content of the card where you can put any information.</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Card with Footer</CardTitle>
+                    <CardDescription>A card with actions in the footer</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p>Cards are versatile containers that can be used for various types of content.</p>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <Button variant="outline" size="sm">Cancel</Button>
+                    <Button size="sm">Save</Button>
+                  </CardFooter>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="bg-muted/50">
+                    <CardTitle>Featured Card</CardTitle>
+                    <CardDescription>With custom styling</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge>Featured</Badge>
+                      <Badge variant="outline">New</Badge>
+                    </div>
+                    <p>You can easily customize card components to match your design requirements.</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
           
           {/* Badges Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Badges</h3>
-            <div className="flex flex-wrap gap-3">
-              <Badge>Default</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="outline">Outline</Badge>
-              <Badge variant="destructive">Destructive</Badge>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Badges</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-3">
+                <Badge>Default</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="outline">Outline</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
           {/* Avatar Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Avatars</h3>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              
-              <Avatar>
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              
-              <Avatar className="h-12 w-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              
-              <Avatar className="h-16 w-16">
-                <AvatarFallback>SM</AvatarFallback>
-              </Avatar>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Avatars</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                
+                <Avatar>
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                
+                <Avatar className="h-16 w-16">
+                  <AvatarFallback>SM</AvatarFallback>
+                </Avatar>
+              </div>
+            </CardContent>
+          </Card>
           
           {/* Progress Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Progress Indicators</h3>
-            <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Progress Indicators</CardTitle>
+            </CardHeader>
+            <CardContent>
               <div className="space-y-2">
                 <Label>Progress Bar: {progress}%</Label>
                 <Progress value={progress} />
               </div>
-            </div>
-          </section>
+            </CardContent>
+          </Card>
         </TabsContent>
         
         {/* Feedback Components Tab */}
-        <TabsContent value="feedback" className="space-y-8">
+        <TabsContent value="feedback" data-testid="tab-content-feedback" className="space-y-8">
           <h2 className="text-2xl font-bold mb-4">Feedback Components</h2>
           
           {/* Alert Dialog */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Alert Dialog</h3>
-            <div className="flex flex-wrap gap-4">
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="outline">Show Alert Dialog</Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete your account
-                      and remove your data from our servers.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Alert Dialog</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-4">
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline">Show Alert Dialog</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete your account
+                        and remove your data from our servers.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </CardContent>
+          </Card>
           
           {/* Tooltip */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Tooltip</h3>
-            <div className="flex gap-10 py-8">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline">Hover Me</Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>This is a tooltip that appears when you hover</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button>Another Example</Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <p>Tooltip can appear on different sides</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Tooltip</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-10 py-4">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="outline">Hover Me</Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>This is a tooltip that appears when you hover</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button>Another Example</Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <p>Tooltip can appear on different sides</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
         
         {/* Layout Components Tab */}
-        <TabsContent value="layout" className="space-y-8">
+        <TabsContent value="layout" data-testid="tab-content-layout" className="space-y-8">
           <h2 className="text-2xl font-bold mb-4">Layout Components</h2>
           
           {/* Accordion */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Accordion</h3>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Is it styled?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It comes with default styles that match the other components&apos; aesthetic.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Is it animated?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It&apos;s animated by default, but you can disable it if you prefer.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Accordion</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. It adheres to the WAI-ARIA design pattern.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Is it styled?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. It comes with default styles that match the other components&apos; aesthetic.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Is it animated?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. It&apos;s animated by default, but you can disable it if you prefer.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
           
           {/* Separator */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Separator</h3>
-            <div className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Separator</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div>
                 <p>This is some content above the separator.</p>
                 <Separator className="my-4" />
                 <p>This is some content below the separator.</p>
               </div>
               
-              <div className="flex items-center my-4">
+              <div className="flex items-center">
                 <span>Left</span>
                 <Separator className="mx-4" orientation="vertical" decorative />
                 <span>Right</span>
               </div>
-            </div>
-          </section>
+            </CardContent>
+          </Card>
           
           {/* Scroll Area */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-medium">Scroll Area</h3>
-            <div className="border rounded-md">
+          <Card>
+            <CardHeader>
+              <CardTitle>Scroll Area</CardTitle>
+            </CardHeader>
+            <CardContent>
               <ScrollArea className="h-72 w-full rounded-md border p-4">
                 <div className="space-y-4">
                   <h4 className="text-sm font-medium">Scrollable Content</h4>
@@ -442,38 +473,48 @@ export default function UIComponentsPage() {
                   ))}
                 </div>
               </ScrollArea>
-            </div>
-          </section>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
       
-      <section className="space-y-4 mt-12 bg-card/50 rounded-lg p-6 shadow-sm border border-border">
-        <h2 className="text-xl font-bold">Component Documentation</h2>
-        <p className="text-muted-foreground mb-4">
-          This showcase demonstrates a selection of the available UI components in the project.
-          For more components and detailed documentation, check out the source files or the shadcn/ui documentation.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <a 
-            href="https://ui.shadcn.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <span className="mr-2">🔗</span>
-            shadcn/ui Docs
-          </a>
-          <a 
-            href="https://github.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <span className="mr-2">📂</span>
-            Source Code
-          </a>
-        </div>
-      </section>
+      <Card className="mt-12">
+        <CardHeader>
+          <CardTitle>Component Documentation</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground mb-4">
+            This showcase demonstrates a selection of the available UI components in the project.
+            For more components and detailed documentation, check out the source files or the shadcn/ui documentation.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a 
+              href="https://ui.shadcn.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={cn(
+                "inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium",
+                "text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+              )}
+            >
+              <span className="mr-2">🔗</span>
+              shadcn/ui Docs
+            </a>
+            <a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={cn(
+                "inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium",
+                "text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+              )}
+            >
+              <span className="mr-2">📂</span>
+              Source Code
+            </a>
+          </div>
+        </CardContent>
+      </Card>
     </PageContainer>
   );
 }

@@ -1,4 +1,6 @@
 import RegisterForm from '@/components/forms/RegisterForm';
+import PageContainer from '@/components/layout/PageContainer';
+import { Card, CardContent } from '@/components/ui/card';
 
 export const metadata = {
   title: 'Register - SupaNext Template',
@@ -7,8 +9,12 @@ export const metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-background">
-      <RegisterForm />
-    </div>
+    <PageContainer maxWidth="sm" className="flex items-center justify-center min-h-[80vh]">
+      <Card className="w-full">
+        <CardContent className="pt-6">
+          <RegisterForm />
+        </CardContent>
+      </Card>
+    </PageContainer>
   );
 }

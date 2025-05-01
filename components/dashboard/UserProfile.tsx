@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
-import { uiStyles } from '@/lib/ui-styles';
+import { cn } from '@/lib/utils';
 
 type UserProfileProps = {
   user: {
@@ -30,7 +30,7 @@ export default function UserProfile({ user, profile }: UserProfileProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center space-x-4">
-          <div className={`w-16 h-16 rounded-full ${uiStyles.bg.secondary} overflow-hidden flex items-center justify-center`}>
+          <div className="w-16 h-16 rounded-full bg-secondary overflow-hidden flex items-center justify-center">
             {profile?.avatar_url ? (
               <Image 
                 src={profile.avatar_url}
@@ -40,7 +40,7 @@ export default function UserProfile({ user, profile }: UserProfileProps) {
                 className="object-cover"
               />
             ) : (
-              <span className={uiStyles.text.secondary}>👤</span>
+              <span className="text-secondary-foreground">👤</span>
             )}
           </div>
           
@@ -48,7 +48,7 @@ export default function UserProfile({ user, profile }: UserProfileProps) {
             <h3 className="font-medium text-lg text-foreground">
               {profile?.full_name || user.email || 'User'}
             </h3>
-            <p className={uiStyles.text.secondary}>
+            <p className="text-muted-foreground">
               {profile?.username ? `@${profile.username}` : 'No username set'}
             </p>
           </div>
@@ -84,9 +84,9 @@ type ProfileFieldProps = {
 
 function ProfileField({ label, value, isMonospaced = false }: ProfileFieldProps) {
   return (
-    <div className={`border-b ${uiStyles.border.default.split(' ')[1]} pb-2`}>
-      <p className={uiStyles.text.secondary}>{label}</p>
-      <p className={`${isMonospaced ? 'font-mono text-sm break-all' : ''} ${uiStyles.text.primary}`}>
+    <div className="border-b border-border pb-2">
+      <p className="text-muted-foreground">{label}</p>
+      <p className={cn(isMonospaced && "font-mono text-sm break-all", "text-foreground")}>
         {value}
       </p>
     </div>

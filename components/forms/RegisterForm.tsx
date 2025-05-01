@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
-import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import FormAlert from './FormAlert';
@@ -113,9 +112,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <Card className="w-full max-w-md p-8 space-y-8">
+    <div className="space-y-6">
       <div className="text-center">
-        <h2 className="mt-6 text-3xl font-bold text-foreground">
+        <h2 className="text-2xl font-bold">
           Create your account
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -132,10 +131,10 @@ export default function RegisterForm() {
       <FormAlert type="error" message={error} />
       <FormAlert type="success" message={successMessage} />
 
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-4">
-          <div className="space-y-1">
-            <label htmlFor="username" className="block text-sm font-medium text-foreground">
+          <div className="space-y-2">
+            <label htmlFor="username" className="block text-sm font-medium">
               Username
             </label>
             <Input
@@ -147,12 +146,11 @@ export default function RegisterForm() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="username"
-              className="w-full"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="email" className="block text-sm font-medium text-foreground">
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-medium">
               Email address
             </label>
             <Input
@@ -164,12 +162,11 @@ export default function RegisterForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="password" className="block text-sm font-medium text-foreground">
+          <div className="space-y-2">
+            <label htmlFor="password" className="block text-sm font-medium">
               Password
             </label>
             <Input
@@ -181,7 +178,6 @@ export default function RegisterForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full"
             />
             <p className="mt-1 text-xs text-muted-foreground">Must be at least 6 characters</p>
           </div>
@@ -212,6 +208,6 @@ export default function RegisterForm() {
         </svg>
         Google
       </Button>
-    </Card>
+    </div>
   );
 }

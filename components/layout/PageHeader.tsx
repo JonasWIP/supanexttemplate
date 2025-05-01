@@ -16,12 +16,12 @@ export default function PageHeader({
 }: PageHeaderProps) {
   return (
     <div className={cn('mb-8', className)}>
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      <h1 className="text-3xl font-bold text-foreground">
         {title}
       </h1>
       
       {description && (
-        <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-lg text-muted-foreground">
           {description}
         </p>
       )}

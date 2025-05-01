@@ -27,7 +27,7 @@ describe('DashboardPage', () => {
     (getCurrentUser as jest.Mock).mockImplementation(() => new Promise(() => {}));
     
     render(<DashboardPage />);
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.getByText('Loading dashboard data...')).toBeInTheDocument();
   });
 
   it('renders dashboard content when user is authenticated', async () => {

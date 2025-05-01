@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getCurrentUser, getUserProfile, signOut, getUserProfileById } from '../../lib/supabase';
+import { getCurrentUser, getUserProfile, signOut } from '../../lib/supabase';
 import { useRouter } from 'next/navigation';
 import { Database } from '../../lib/database.types';
 import UserProfile from '@/components/dashboard/UserProfile';
@@ -24,7 +24,6 @@ export default function DashboardPage() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -51,32 +50,12 @@ export default function DashboardPage() {
     }
 
     loadUserData();
-  }, [router]);
+  }, [router, setError]);
 
-  // Function to fetch user profile using Supabase client method instead of direct REST API
-  const fetchUserProfileViaREST = async () => {
-    if (!user) return;
-    
-    setApiLoading(true);
-    setError(null);
-    
-    try {
-      // Using the Supabase client method instead of direct REST API
-      const userProfile = await getUserProfileById(user.id);
-      
-      if (userProfile) {
-        setProfile(userProfile);
-      } else {
-        setProfile(null);
-        setError('No profile found. Your user account might not have an associated profile record.');
-      }
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch user profile');
-    } finally {
-      setApiLoading(false);
-    }
-  };
+  // Show error state if needed
+  if (error) {
+    console.warn('Error state:', error);
+  }
 
   const handleSignOut = async () => {
     await signOut();

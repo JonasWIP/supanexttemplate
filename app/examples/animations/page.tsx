@@ -154,7 +154,7 @@ export default function AnimationsExamplePage() {
 
       <div className="mt-8">
         <p className="text-sm text-muted-foreground">
-          These examples demonstrate just a small sample of what's possible with Framer Motion. 
+          These examples demonstrate just a small sample of what&apos;s possible with Framer Motion. 
           Check out the <a href="https://www.framer.com/motion/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">official documentation</a> for more advanced animations.
         </p>
       </div>

@@ -62,7 +62,7 @@ export default function ClientApiExample({ serverDataCount }: { serverDataCount:
       <h2 className="text-xl font-bold mb-4">Client-Side API Call</h2>
       <p className="mb-4 text-muted-foreground">
         This section demonstrates fetching data from an external API directly in the browser.
-        The API request will appear in the browser's network tab.
+        The API request will appear in the browser&apos;s network tab.
       </p>
       
       <div className="mb-6">

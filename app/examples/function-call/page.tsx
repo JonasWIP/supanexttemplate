@@ -14,7 +14,8 @@ export const metadata = {
 
 export default async function FunctionCallPage() {
   const supabase = await SupabaseServerHelper.createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // Auth check is performed but user isn't needed in this component
+  await supabase.auth.getUser();
   
   let response = null;
   let error = null;
@@ -73,7 +74,7 @@ export default async function FunctionCallPage() {
             </CodeBlock>
             
             <CodeBlock language="typescript" title="Basic Function Call" className="mt-3">
-              const {'{ data, error }'} = await supabase.functions.invoke('hello-world');
+              const {'{ data, error }'} = await supabase.functions.invoke(&apos;hello-world&apos;);
             </CodeBlock>
             
             <p className="text-muted-foreground text-sm mt-4 mb-2">
@@ -81,15 +82,15 @@ export default async function FunctionCallPage() {
             </p>
             
             <CodeBlock language="typescript" title="Authenticated Call">
-              // Auth header is automatically included from the server client
-              const {'{ data, error }'} = await supabase.functions.invoke('hello-world');
+              {/* Auth header is included automatically */}
+              const {'{ data, error }'} = await supabase.functions.invoke(&apos;hello-world&apos;);
             </CodeBlock>
             
             <p className="text-muted-foreground text-sm mt-4 mb-2">
               With extra parameters:
             </p>
             <CodeBlock language="typescript" title="Parameterized Call">
-              const {'{ data, error }'} = await supabase.functions.invoke('hello-world', {'{'}
+              const {'{ data, error }'} = await supabase.functions.invoke(&apos;hello-world&apos;, {'{'}
                 body: {'{ param1: "value1", param2: "value2" }'}
               {'}'});
             </CodeBlock>

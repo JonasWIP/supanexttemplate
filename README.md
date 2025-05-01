@@ -272,7 +272,6 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Setup Tests for every page
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
 - Update / documentation and documentation structure

@@ -135,8 +135,8 @@ Create a new file at `components/tasks/TaskCard.tsx`:
 'use client';
 
 import { useState } from 'react';
-import { Card } from '../ui/Card';
-import Button from '../ui/Button';
+import { Card } from '../ui/card';
+import Button from '../ui/button';
 import { formatDate } from '@/lib/utils';
 import { Database } from '@/lib/database.types';
 
@@ -226,7 +226,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
-import { Card } from '../ui/Card';
+import { Card } from '../ui/card';
 import { Database } from '@/lib/database.types';
 import { getSupabaseClient } from '@/lib/supabase';
 
@@ -896,7 +896,7 @@ For example, create a public tasks showcase at `app/public/tasks/page.tsx`:
 
 import { useState, useEffect } from 'react';
 import { getSupabaseClient } from '@/lib/supabase';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { formatDate } from '@/lib/utils';
 
 export const metadata = {

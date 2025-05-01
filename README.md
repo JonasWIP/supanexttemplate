@@ -272,12 +272,14 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- Changeable themes / branding / colors / fonts / icons / logos
+- Update Naming Convention for Components including own and shadcn/ui components
 - Update dependencies
+- Refactor the organisation and directory structure of the project / Remove unused files and folders
+- Setup Tests for every page
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
-- Setup Tests for every page
-- Refactor the organisation and directory structure of the project / Remove unused files and folders
+
+
 - Update / documentation and documentation structure
 - Test the npx creation tool
 - Final Testing 

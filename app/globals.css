@@ -3,26 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+  /* Base styles */
   html {
     font-size: 16px;
   }
 
+  /* Common base styles, regardless of theme */
   body {
-    @apply bg-gray-100 text-gray-900;
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-gray-800;
+    @apply font-bold text-foreground;
+    font-family: var(--font-heading);
   }
 
   p {
-    @apply text-gray-700;
+    @apply text-foreground/90;
   }
 
-  .dark p {
-    @apply text-gray-300;
+  code, pre, kbd {
+    font-family: var(--font-mono);
   }
-  :root {
+
+  /* Default theme (light) */
+  :root, .theme-default {
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -48,8 +54,15 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    
+    /* Default fonts */
+    --font-body: var(--font-inter), system-ui, sans-serif;
+    --font-heading: var(--font-inter), system-ui, sans-serif;
+    --font-mono: var(--font-jetbrains-mono), monospace;
   }
-  .dark {
+
+  /* Dark theme */
+  .dark, .theme-dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
@@ -75,15 +88,76 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  /* Blue Sapphire theme */
+  .theme-blue-sapphire {
+    --background: 210 50% 98%;
+    --foreground: 212 80% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 212 80% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 212 80% 20%;
+    --primary: 212 80% 35%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 90%;
+    --secondary-foreground: 212 80% 35%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 212 50% 40%;
+    --accent: 199 80% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 212 30% 85%;
+    --input: 212 30% 85%;
+    --ring: 212 80% 35%;
+    --chart-1: 212 80% 45%;
+    --chart-2: 190 70% 50%;
+    --chart-3: 230 60% 55%;
+    --chart-4: 170 65% 45%;
+    --chart-5: 200 85% 30%;
+    --radius: 0.375rem;
+
+    --font-body: var(--font-nunito), system-ui, sans-serif;
+    --font-heading: var(--font-nunito), system-ui, sans-serif;
+    --font-mono: var(--font-jetbrains-mono), monospace;
+  }
+
+  /* Forest Green theme */
+  .theme-forest-green {
+    --background: 120 30% 98%;
+    --foreground: 125 50% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 125 50% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 125 50% 15%;
+    --primary: 135 50% 30%;
+    --primary-foreground: 120 40% 98%;
+    --secondary: 120 20% 90%;
+    --secondary-foreground: 135 50% 30%;
+    --muted: 120 20% 95%;
+    --muted-foreground: 125 30% 40%;
+    --accent: 150 60% 35%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 120 40% 98%;
+    --border: 125 20% 85%;
+    --input: 125 20% 85%;
+    --ring: 135 50% 30%;
+    --chart-1: 135 70% 40%;
+    --chart-2: 95 60% 50%;
+    --chart-3: 160 50% 45%;
+    --chart-4: 80 55% 40%;
+    --chart-5: 190 60% 35%;
+    --radius: 0.25rem;
+
+    --font-body: var(--font-roboto), system-ui, sans-serif;
+    --font-heading: var(--font-roboto-slab), serif;
+    --font-mono: var(--font-fira-code), monospace;
+  }
 }
-
-
 
 @layer base {
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

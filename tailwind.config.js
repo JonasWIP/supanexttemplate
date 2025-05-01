@@ -12,7 +12,12 @@ module.exports = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		},
+  		 },
+      fontFamily: {
+        sans: ['var(--font-body)'],
+        heading: ['var(--font-heading)'],
+        mono: ['var(--font-mono)']
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -60,6 +65,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-      require("tailwindcss-animate")
-],
+    require("tailwindcss-animate")
+  ],
 }

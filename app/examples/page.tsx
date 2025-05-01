@@ -44,11 +44,17 @@ export default function ExamplesOverviewPage() {
       icon: '☁️',
     },
     {
+      title: 'Theme Showcase',
+      description: 'Explore and test the different themes available in the application.',
+      href: '/examples/themes',
+      icon: '🎨',
+      badge: 'New',
+    },
+    {
       title: 'Animations with Framer Motion',
       description: 'Interactive UI animations using Framer Motion with various examples.',
       href: '/examples/animations',
       icon: '✨',
-      badge: 'New',
     },
   ];
 

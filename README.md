@@ -271,7 +271,7 @@ Currently it runs npm test and checks if for compile errors and if the tests are
 Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
-
+- Fix LowerCase names for components
 - Changeable themes / branding / colors / fonts / icons / logos
 - Update dependencies
 - Home Page will be a short tutorial for the template, and what to setup and configure

@@ -272,12 +272,12 @@ Jest is used for testing. You can add your own tests in the __tests__ folder.
 
 ## TODO
 
-- shadcn/ui + Tailwind
-- Framer Motion
+- Changeable themes / branding / colors / fonts / icons / logos
 - Update dependencies
 - Home Page will be a short tutorial for the template, and what to setup and configure
 - Remove issues, warnings from supabase and compile, setup
 - Refactor the organisation and directory structure of the project / Remove unused files and folders
+- Update / documentation and documentation structure
 - Test the npx creation tool
 - Final Testing 
 

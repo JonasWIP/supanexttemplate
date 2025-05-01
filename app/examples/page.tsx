@@ -43,6 +43,13 @@ export default function ExamplesOverviewPage() {
       href: '/examples/function-call',
       icon: '☁️',
     },
+    {
+      title: 'Animations with Framer Motion',
+      description: 'Interactive UI animations using Framer Motion with various examples.',
+      href: '/examples/animations',
+      icon: '✨',
+      badge: 'New',
+    },
   ];
 
   return (

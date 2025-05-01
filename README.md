@@ -169,7 +169,6 @@ npm install -g supabase@latest
 - Revampl the documentation to explain/summarize the project for ai models
 - Add roomodes, project specific instructions, fill gaps of knowledge for ai models (context7,claude-task-master,https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
 - Add mcp tools for the used ai agent models
-- Project summary
 - Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment
 - Automating More of the setup process
 - Full integration into a Custom Managment System  with frontend and development tools or mcp usage

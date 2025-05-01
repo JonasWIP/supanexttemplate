@@ -4,10 +4,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { SupabaseSetupStatus } from '@/components/setup/SupabaseSetupStatus';
+import { ClientEnvInitializer } from '@/components/setup/ClientEnvInitializer';
+import { SetupStepStatus } from '@/components/setup/SetupStepStatus';
 
 export default function HomePage() {
+  // Pass environment variables to client (only NEXT_PUBLIC_ ones)
+  const clientEnvVars = {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  };
+
+  // Check if Supabase is configured by checking if environment variables are available
+  const isSupabaseConfigured = !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL && 
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  
   return (
     <PageContainer maxWidth="xl">
+      <ClientEnvInitializer envVars={clientEnvVars} />
+      
       <PageHeader 
         title="Welcome to SupaNext Template"
         description="A modern, production-ready template using Next.js and Supabase with TypeScript and Tailwind CSS."
@@ -20,16 +37,38 @@ export default function HomePage() {
           <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900">shadcn/ui</Badge>
           <Badge variant="secondary" className="bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200 hover:bg-rose-100 dark:hover:bg-rose-900">Jest</Badge>
         </div>
+        
+        {/* Supabase setup status indicator */}
+        <div className="mt-4">
+          <SupabaseSetupStatus />
+        </div>
       </PageHeader>
 
       <div className="space-y-8">
         <Card>
           <CardHeader>
-            <CardTitle>Local Development Setup</CardTitle>
+            <CardTitle className="flex justify-between items-center">
+              <span>Local Development Setup</span>
+              {/* Overall setup progress */}
+              <div className="flex gap-2 items-center text-sm">
+                <span className="text-muted-foreground">Setup Status:</span>
+                <SetupStepStatus
+                  isCompleted={isSupabaseConfigured}
+                  title={isSupabaseConfigured ? "Complete" : "Pending"}
+                />
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div>
-              <h3 className="text-xl font-medium mb-2">1. Environment Configuration</h3>
+            <div className="relative">
+              <h3 className="text-xl font-medium mb-2 flex items-center gap-2">
+                <span>1. Environment Configuration</span>
+                <SetupStepStatus
+                  isCompleted={isSupabaseConfigured}
+                  title=""
+                  className="ml-2"
+                />
+              </h3>
               <p className="mb-3">Create a <code className="bg-muted px-1.5 py-0.5 rounded text-sm">.env.local</code> file in the project root with:</p>
               <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
                 <code>{`NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321

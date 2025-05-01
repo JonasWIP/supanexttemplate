@@ -28,27 +28,50 @@ interface ResponseWithCookies {
  */
 export class SupabaseClientHelper {
   /**
+   * Check if the required Supabase environment variables are available
+   */
+  static hasRequiredEnvVars(): boolean {
+    return !!(
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+  }
+
+  /**
    * Creates a Supabase client for client components
+   * @throws Error if environment variables are missing
    */
   static createBrowserClient(): SupabaseClient {
-    return createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error('Your project\'s URL and Key are required to create a Supabase client!\n\nCheck your Supabase project\'s API settings to find these values\n\nhttps://supabase.com/dashboard/project/_/settings/api');
+    }
+    
+    return createBrowserClient(supabaseUrl, supabaseAnonKey);
   }
 
   /**
    * Creates a Supabase client for the middleware
    * @param request NextRequest object
    * @param response NextResponse object
+   * @throws Error if environment variables are missing
    */
   static createMiddlewareClient(
     request: RequestWithCookies, 
     response: ResponseWithCookies
   ): SupabaseClient {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error('Your project\'s URL and Key are required to create a Supabase client!\n\nCheck your Supabase project\'s API settings to find these values\n\nhttps://supabase.com/dashboard/project/_/settings/api');
+    }
+    
     return createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      supabaseUrl,
+      supabaseAnonKey,
       {
         cookies: {
           getAll() {

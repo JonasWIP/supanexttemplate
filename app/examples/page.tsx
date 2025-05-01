@@ -56,6 +56,13 @@ export default function ExamplesOverviewPage() {
       href: '/examples/animations',
       icon: '✨',
     },
+    {
+      title: 'UI Components',
+      description: 'Explore and interact with the various UI components available in the project.',
+      href: '/examples/ui-components',
+      icon: '🧩',
+      badge: 'New',
+    },
   ];
 
   return (

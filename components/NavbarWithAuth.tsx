@@ -22,9 +22,9 @@ export default function NavbarWithAuth({
   if (isLoading) {
     // Return a simplified navbar during loading
     return (
-      <nav className="bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-700/30 py-4">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="text-xl font-bold dark:text-white">{logo}</div>
+      <nav className="bg-background border-b border-border shadow-sm">
+        <div className="container mx-auto flex justify-between items-center px-4 py-4">
+          <div className="text-xl font-bold text-foreground">{logo}</div>
         </div>
       </nav>
     );

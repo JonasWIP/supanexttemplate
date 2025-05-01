@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { Database } from '../../lib/database.types';
 import UserProfile from '@/components/dashboard/UserProfile';
 import DashboardActions from '@/components/dashboard/DashboardActions';
-import RestApiTester from '@/components/dashboard/RestApiTester';
 import PageContainer from '@/components/layout/PageContainer';
 import PageHeader from '@/components/layout/PageHeader';
 
@@ -108,16 +107,7 @@ export default function DashboardPage() {
           <DashboardActions onSignOut={handleSignOut} />
         </div>
         
-        {/* REST API Demo */}
-        <div>
-          <RestApiTester 
-            userId={user?.id}
-            onFetchProfile={fetchUserProfileViaREST}
-            isLoading={apiLoading}
-            error={error}
-            profile={profile}
-          />
-        </div>
+        
       </div>
     </PageContainer>
   );

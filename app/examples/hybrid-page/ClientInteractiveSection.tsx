@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
 import { Card } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import Input from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/input';
 
 // Define type for post objects
 interface Post {
@@ -73,7 +73,7 @@ export default function ClientInteractiveSection({ initialPostCount }: { initial
   }, [fetchPosts]);
 
   return (
-    <Card className="p-6 border-l-4 border-blue-500">
+    <Card className="p-6 border-l-4 border-sky-500 dark:border-sky-800">
       <h2 className="text-xl font-bold mb-4">Client-Side Interactive Section</h2>
       <p className="mb-2">This section is rendered and updated client-side.</p>
       <p className="mb-2">Last client update: {clientTimestamp}</p>
@@ -106,7 +106,7 @@ export default function ClientInteractiveSection({ initialPostCount }: { initial
         <h3 className="font-semibold mb-2">Latest Posts (Client-Side):</h3>
         {loading ? (
           <div className="flex justify-center py-4">
-            <div className="animate-pulse">Loading...</div>
+            <div className="animate-pulse text-muted-foreground">Loading...</div>
           </div>
         ) : posts.length > 0 ? (
           <ul className="list-disc pl-5">
@@ -115,13 +115,13 @@ export default function ClientInteractiveSection({ initialPostCount }: { initial
             ))}
           </ul>
         ) : (
-          <p>No posts available.</p>
+          <p className="text-muted-foreground">No posts available.</p>
         )}
       </div>
       
-      <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded text-sm">
-        <p className="font-medium mb-2">How this hybrid approach works:</p>
-        <ol className="list-decimal pl-5 space-y-1">
+      <div className="mt-6 bg-muted rounded border border-border p-4 text-sm">
+        <p className="font-medium mb-2 text-foreground">How this hybrid approach works:</p>
+        <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
           <li>The parent page loads with server-rendered data (fast initial load, good SEO)</li>
           <li>This client component initializes and fetches fresh data asynchronously</li>
           <li>User can interact with this component without page refreshes</li>

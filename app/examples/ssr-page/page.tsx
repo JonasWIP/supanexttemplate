@@ -68,15 +68,15 @@ export default async function SSRPage() {
           ) : (
             <p>No posts found or table doesn&apos;t exist.</p>
           )}
-          <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
-            <p className="text-sm font-mono">This data was fetched server-side.</p>
-            <p className="text-sm font-mono">The API request is not visible to the client.</p>
+          <div className="mt-4 p-4 bg-muted rounded border border-border">
+            <p className="text-sm font-mono text-foreground">This data was fetched server-side.</p>
+            <p className="text-sm font-mono text-foreground">The API request is not visible to the client.</p>
           </div>
         </Card>
         
-        <Card className="p-6 bg-green-50 dark:bg-green-900/20">
+        <Card className="p-6 bg-emerald-50 dark:bg-emerald-950/20 border-l-4 border-emerald-500 dark:border-emerald-800">
           <h2 className="text-xl font-bold mb-4">Benefits of SSR in this example:</h2>
-          <ul className="list-disc pl-5">
+          <ul className="list-disc pl-5 text-muted-foreground">
             <li>Data is fetched on the server before the page is sent to the browser</li>
             <li>API keys and queries are not exposed to the client</li>
             <li>Content is ready immediately (no loading states needed)</li>

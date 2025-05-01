@@ -50,7 +50,7 @@ export default function ExamplesOverviewPage() {
       <PageHeader title="Examples & Demos" />
       
       <div className="mb-6">
-        <p className="text-gray-700 dark:text-gray-300">
+        <p className="text-muted-foreground">
           Explore these examples to learn how to use different features of the SupaNext template.
           Each example demonstrates a different rendering strategy or Supabase integration.
         </p>
@@ -75,7 +75,7 @@ export default function ExamplesOverviewPage() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 text-gray-600 dark:text-gray-400">{example.description}</p>
+                  <p className="mt-2 text-muted-foreground">{example.description}</p>
                 </div>
               </div>
               <div className="mt-4 flex justify-end">
@@ -88,16 +88,16 @@ export default function ExamplesOverviewPage() {
         ))}
       </div>
 
-      <div className="mt-12 bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-        <h2 className="text-xl font-bold mb-4">Looking for Documentation?</h2>
-        <p className="mb-4">
+      <div className="mt-12 bg-card/50 rounded-lg p-6 shadow-sm border border-border">
+        <h2 className="text-xl font-bold mb-4 text-foreground">Looking for Documentation?</h2>
+        <p className="mb-4 text-muted-foreground">
           Check out our comprehensive guides to understand how these examples work and best practices
           for your Next.js + Supabase application:
         </p>
         <div className="flex flex-wrap gap-4">
           <Link 
             href="/docs/ssr-guide" 
-            className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <span className="mr-2">📚</span>
             SSR Guide
@@ -106,7 +106,7 @@ export default function ExamplesOverviewPage() {
             href="https://supabase.com/docs" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <span className="mr-2">🔗</span>
             Supabase Docs
@@ -115,7 +115,7 @@ export default function ExamplesOverviewPage() {
             href="https://nextjs.org/docs" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-background border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <span className="mr-2">🔗</span>
             Next.js Docs

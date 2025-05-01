@@ -6,12 +6,10 @@ import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card } from '../ui/Card';
-import Button from '../ui/Button';
-import Input from '../ui/Input';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/input';
 import FormAlert from './FormAlert';
 import FormDivider from './FormDivider';
-
-
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -117,14 +115,14 @@ export default function RegisterForm() {
   return (
     <Card className="w-full max-w-md p-8 space-y-8">
       <div className="text-center">
-        <h2 className="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
+        <h2 className="mt-6 text-3xl font-bold text-foreground">
           Create your account
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-muted-foreground">
           Already have an account?{' '}
           <Link
             href="/login"
-            className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            className="font-medium text-primary hover:text-primary/80"
           >
             Sign in
           </Link>
@@ -136,48 +134,63 @@ export default function RegisterForm() {
 
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-4">
-          <Input
-            label="Username"
-            id="username"
-            name="username"
-            type="text"
-            autoComplete="username"
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="username"
-          />
+          <div className="space-y-1">
+            <label htmlFor="username" className="block text-sm font-medium text-foreground">
+              Username
+            </label>
+            <Input
+              id="username"
+              name="username"
+              type="text"
+              autoComplete="username"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="username"
+              className="w-full"
+            />
+          </div>
 
-          <Input
-            label="Email address"
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-          />
+          <div className="space-y-1">
+            <label htmlFor="email" className="block text-sm font-medium text-foreground">
+              Email address
+            </label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full"
+            />
+          </div>
 
-          <Input
-            label="Password"
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            helpText="Must be at least 6 characters"
-          />
+          <div className="space-y-1">
+            <label htmlFor="password" className="block text-sm font-medium text-foreground">
+              Password
+            </label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="w-full"
+            />
+            <p className="mt-1 text-xs text-muted-foreground">Must be at least 6 characters</p>
+          </div>
         </div>
 
         <Button
           type="submit"
-          isLoading={loading}
-          fullWidth
+          disabled={loading}
+          className="w-full"
         >
           {loading ? 'Creating account...' : 'Create account'}
         </Button>
@@ -189,10 +202,9 @@ export default function RegisterForm() {
         variant="outline"
         onClick={handleGoogleSignup}
         disabled={loading}
-        fullWidth
-        className="flex justify-center items-center"
+        className="w-full flex justify-center items-center"
       >
-        <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+        <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
           <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />

@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { callSupabaseFunction } from '@/lib/supabase/functions';
+import React, { useState, useEffect } from 'react';
 import { SupabaseClientHelper } from '@/lib/supabase/client';
+import { callSupabaseFunction } from '@/lib/supabase/functions';
 import { Card } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
+import { CodeBlock } from '@/components/ui/CodeBlock';
+import { uiStyles } from '@/lib/ui-styles';
 
 type FunctionResponse = {
   message: string;
@@ -24,7 +26,7 @@ export default function ClientFunctionExample() {
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   
   // Check authentication status on component mount
-  useState(() => {
+  useEffect(() => {
     async function checkAuth() {
       try {
         const supabase = SupabaseClientHelper.createBrowserClient();
@@ -37,7 +39,7 @@ export default function ClientFunctionExample() {
     }
     
     checkAuth();
-  });
+  }, []);
   
   async function handleCallFunction() {
     setLoading(true);
@@ -61,25 +63,46 @@ export default function ClientFunctionExample() {
   return (
     <Card className="p-6 mt-6">
       <h2 className="text-xl font-bold mb-4">Client-Side Edge Function Call</h2>
-      <p className="text-sm text-gray-600 mb-4">
+      <p className="text-sm text-muted-foreground mb-4">
         This example demonstrates calling a Supabase Edge Function from a client component.
       </p>
       
       <div className="mb-4 flex items-center space-x-2">
         <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={useAuth}
-            onChange={() => setUseAuth(!useAuth)}
-            className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+          <div className="relative inline-flex items-center">
+            <input
+              type="checkbox"
+              checked={useAuth}
+              onChange={() => setUseAuth(!useAuth)}
+              className="sr-only" // Hide the actual checkbox but keep it accessible
+            />
+            <div className={`w-4 h-4 rounded border ${useAuth 
+              ? 'bg-primary border-primary' 
+              : 'bg-background border-input dark:bg-muted'}`}>
+              {useAuth && (
+                <svg 
+                  className="w-4 h-4 text-primary-foreground" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2.5} 
+                    d="M5 12l5 5L20 7" 
+                  />
+                </svg>
+              )}
+            </div>
+          </div>
+          <span className="ml-2 text-sm text-foreground">
             Include authentication token
           </span>
         </label>
         
         {isSignedIn === false && useAuth && (
-          <div className="text-amber-600 text-sm ml-2">
+          <div className={uiStyles.text.warning}>
             ⚠️ You are not signed in. Auth call will fail.
           </div>
         )}
@@ -93,39 +116,56 @@ export default function ClientFunctionExample() {
       </Button>
       
       {(result || error) && (
-        <div className="mt-4 bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
+        <div className={`mt-4 p-4 rounded-md ${uiStyles.border.default} ${uiStyles.bg.secondary}`}>
           <h3 className="font-medium mb-2">Result:</h3>
           {error ? (
-            <div className="text-red-600 dark:text-red-400">
+            <div className={uiStyles.text.error}>
               <p>Error: {error}</p>
             </div>
           ) : (
             <div>
-              <div className={`mb-2 text-sm ${result?.authenticated ? 'text-green-600' : 'text-amber-600'}`}>
-                Status: {result?.authenticated ? 'Authenticated ✓' : 'Public Access (Not Authenticated)'}
+              <div className={`mb-2 text-sm flex items-center ${result?.authenticated ? uiStyles.text.success : uiStyles.text.warning}`}>
+                Status: {result?.authenticated ? (
+                  <>
+                    Authenticated 
+                    <svg 
+                      className="w-5 h-5 ml-1" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2.5} 
+                        d="M5 13l4 4L19 7" 
+                      />
+                    </svg>
+                  </>
+                ) : 'Public Access (Not Authenticated)'}
               </div>
-              <pre className="whitespace-pre-wrap break-all bg-white dark:bg-gray-900 p-3 rounded text-sm">
+              <CodeBlock>
                 {JSON.stringify(result, null, 2)}
-              </pre>
+              </CodeBlock>
             </div>
           )}
         </div>
       )}
 
-      <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
+      <div className={`mt-4 p-4 rounded ${uiStyles.border.default} ${uiStyles.bg.secondary}`}>
         <h3 className="font-medium mb-2">About Authentication</h3>
-        <p className="text-sm mb-2">
+        <p className="text-sm mb-2 text-muted-foreground">
           This example can run in two modes:
         </p>
-        <ul className="list-disc pl-5 text-sm">
+        <ul className="list-disc pl-5 text-sm text-muted-foreground">
           <li className="mb-1">
-            <strong>Authenticated:</strong> Sends your Supabase session token with the request
+            <strong className="text-foreground">Authenticated:</strong> Sends your Supabase session token with the request
           </li>
           <li>
-            <strong>Public:</strong> Calls the function without authentication
+            <strong className="text-foreground">Public:</strong> Calls the function without authentication
           </li>
         </ul>
-        <p className="text-sm mt-2">
+        <p className="text-sm mt-2 text-muted-foreground">
           Our Edge Function is configured to handle both authenticated and unauthenticated requests
           with different responses.
         </p>

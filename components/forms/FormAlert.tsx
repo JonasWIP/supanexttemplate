@@ -10,24 +10,24 @@ interface FormAlertProps {
 }
 
 const alertStyles: Record<AlertType, string> = {
-  success: 'bg-green-100 dark:bg-green-900/30 border-l-4 border-green-500 text-green-700 dark:text-green-300',
-  error: 'bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300',
-  warning: 'bg-yellow-100 dark:bg-yellow-900/30 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300',
-  info: 'bg-blue-100 dark:bg-blue-900/30 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300',
+  success: 'bg-emerald-50 dark:bg-emerald-950/20 border-l-4 border-emerald-500 dark:border-emerald-700',
+  error: 'bg-rose-50 dark:bg-rose-950/20 border-l-4 border-rose-500 dark:border-rose-700',
+  warning: 'bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 dark:border-amber-700',
+  info: 'bg-sky-50 dark:bg-sky-950/20 border-l-4 border-sky-500 dark:border-sky-700',
 };
 
 const textStyles: Record<AlertType, string> = {
-  success: 'text-green-700 dark:text-green-300',
-  error: 'text-red-700 dark:text-red-300',
-  warning: 'text-yellow-700 dark:text-yellow-300',
-  info: 'text-blue-700 dark:text-blue-300',
+  success: 'text-emerald-700 dark:text-emerald-300',
+  error: 'text-rose-700 dark:text-rose-300',
+  warning: 'text-amber-700 dark:text-amber-300',
+  info: 'text-sky-700 dark:text-sky-300',
 };
 
 export default function FormAlert({ type, message, className }: FormAlertProps) {
   if (!message) return null;
   
   return (
-    <div className={cn('p-4', alertStyles[type], className)}>
+    <div className={cn('p-4 rounded', alertStyles[type], className)}>
       {typeof message === 'string' ? (
         <p className={textStyles[type]}>{message}</p>
       ) : (

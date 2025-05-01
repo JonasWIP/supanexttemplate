@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { Button } from '@/components/ui/Button';
 
 type NavbarProps = {
   logo?: string;
@@ -22,9 +24,9 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-700/30 py-4">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="text-xl font-bold dark:text-white">
+    <nav className="bg-background border-b border-border shadow-sm">
+      <div className="container mx-auto flex justify-between items-center px-4 py-4">
+        <div className="text-xl font-bold text-foreground">
           <Link href="/">
             {logo}
           </Link>
@@ -36,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
               <li key={index}>
                 <Link 
                   href={link.href}
-                  className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition duration-300"
+                  className="text-muted-foreground hover:text-foreground transition duration-300"
                 >
                   {link.label}
                 </Link>
@@ -44,33 +46,35 @@ const Navbar: React.FC<NavbarProps> = ({
             ))}
           </ul>
           
+          <div className="mr-4">
+            <ThemeToggle />
+          </div>
+          
           {isAuthenticated ? (
             <div className="flex items-center">
               {userName && (
-                <span className="mr-4 text-sm text-gray-600 dark:text-gray-300">
+                <span className="mr-4 text-sm text-muted-foreground">
                   Hello, {userName}
                 </span>
               )}
-              <button
+              <Button
                 onClick={onLogout}
-                className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white px-4 py-2 rounded-md transition duration-300"
+                variant="destructive"
               >
                 Logout
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="flex space-x-2">
-              <Link 
-                href="/register"
-                className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white px-4 py-2 rounded-md transition duration-300"
-              >
-                Register
+              <Link href="/register">
+                <Button variant="secondary">
+                  Register
+                </Button>
               </Link>
-              <Link 
-                href="/login"
-                className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded-md transition duration-300"
-              >
-                Login
+              <Link href="/login">
+                <Button>
+                  Login
+                </Button>
               </Link>
             </div>
           )}

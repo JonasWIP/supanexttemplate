@@ -24,7 +24,7 @@ export async function callSupabaseFunction<T = ResponseData>(
   }
 ): Promise<T> {
   const {
-    method = 'GET',
+    method = 'POST',
     body,
     headers = {},
     token: customToken,
@@ -45,7 +45,6 @@ export async function callSupabaseFunction<T = ResponseData>(
     functionsUrl = `${supabaseUrl}/functions/v1/${functionName}`;
   } else {
     // Production URL - ensure proper formatting with https://
-    // Format should be: https://[project-ref].supabase.co/functions/v1/[function-name]
     functionsUrl = `${supabaseUrl}/functions/v1/${functionName}`;
   }
 

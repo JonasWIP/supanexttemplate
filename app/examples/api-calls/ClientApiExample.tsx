@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import {Button} from '@/components/ui/Button';
 import { api } from '@/lib/api';
 
 // Type definition for API response
@@ -58,25 +58,25 @@ export default function ClientApiExample({ serverDataCount }: { serverDataCount:
   };
   
   return (
-    <Card className="p-6 border-l-4 border-blue-500">
+    <Card className="p-6 border-l-4 border-blue-500 dark:border-blue-800">
       <h2 className="text-xl font-bold mb-4">Client-Side API Call</h2>
-      <p className="mb-4">
+      <p className="mb-4 text-muted-foreground">
         This section demonstrates fetching data from an external API directly in the browser.
         The API request will appear in the browser's network tab.
       </p>
       
       <div className="mb-6">
-        <div className="text-sm text-gray-500">Server provided {serverDataCount} items initially</div>
-        <div className="text-sm text-gray-500">Last client update: {clientTimestamp}</div>
+        <div className="text-sm text-muted-foreground">Server provided {serverDataCount} items initially</div>
+        <div className="text-sm text-muted-foreground">Last client update: {clientTimestamp}</div>
         
         <div className="mt-4 flex flex-col md:flex-row gap-4">
           <div className="flex-1">
-            <label htmlFor="api-endpoint" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="api-endpoint" className="block text-sm font-medium text-foreground mb-1">
               API Endpoint
             </label>
             <select 
               id="api-endpoint"
-              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
+              className="w-full p-2 border border-input rounded-md bg-background text-foreground"
               value={apiUrl}
               onChange={handleApiEndpointChange}
             >
@@ -106,18 +106,18 @@ export default function ClientApiExample({ serverDataCount }: { serverDataCount:
         <h3 className="font-semibold mb-2">API Response:</h3>
         {loading ? (
           <div className="flex justify-center py-8">
-            <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+            <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
           </div>
         ) : data.length > 0 ? (
-          <div className="bg-gray-100 dark:bg-gray-800 rounded p-4">
+          <div className="bg-muted border border-border rounded p-4">
             <ul className="space-y-2">
               {data.map((item) => (
-                <li key={item.id} className="border-b pb-2 border-gray-200 dark:border-gray-700">
+                <li key={item.id} className="border-b pb-2 border-border">
                   <div className="font-medium">{item.title}</div>
-                  {item.body && <div className="text-sm truncate text-gray-600 dark:text-gray-400">{item.body}</div>}
+                  {item.body && <div className="text-sm truncate text-muted-foreground">{item.body}</div>}
                   {item.completed !== undefined && (
                     <div className="text-sm">
-                      Status: <span className={item.completed ? "text-green-600" : "text-amber-600"}>
+                      Status: <span className={item.completed ? "text-green-600 dark:text-green-500" : "text-amber-600 dark:text-amber-500"}>
                         {item.completed ? "Completed" : "Pending"}
                       </span>
                     </div>
@@ -127,13 +127,13 @@ export default function ClientApiExample({ serverDataCount }: { serverDataCount:
             </ul>
           </div>
         ) : (
-          <div className="text-amber-600">No data received from API</div>
+          <div className="text-amber-600 dark:text-amber-500">No data received from API</div>
         )}
       </div>
       
-      <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded text-sm">
-        <h4 className="font-medium mb-1">Benefits of client-side API calls:</h4>
-        <ul className="list-disc ml-5 space-y-1">
+      <div className="mt-6 bg-muted border border-border p-4 rounded text-sm">
+        <h4 className="font-medium mb-1 text-foreground">Benefits of client-side API calls:</h4>
+        <ul className="list-disc ml-5 space-y-1 text-muted-foreground">
           <li>Interactive experience with dynamic data refreshing</li>
           <li>Reduces server load (computation happens in user&apos;s browser)</li>
           <li>Can be based on user interaction and state</li>

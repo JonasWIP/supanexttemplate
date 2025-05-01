@@ -5,6 +5,7 @@ import { CONFIG } from '@/lib/constants';
 import NavbarWithAuth from '@/components/NavbarWithAuth';
 import Footer from '@/components/Footer';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ThemeProvider } from '@/components/ui/theme-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,32 +31,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased">
-        <AuthProvider>
-          <NavbarWithAuth 
-            logo="SupaNext"
-            links={[
-              { label: 'Home', href: '/' },
-              { label: 'Dashboard', href: '/dashboard' },
-              { label: 'Examples', href: '/examples' },
-              { label: 'About', href: '/about' },
-              { label: 'Contact', href: '/contact' },
-            ]}
-          />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer
-            companyName="SupaNext"
-            links={[
-              { label: 'Home', href: '/' },
-              { label: 'About', href: '/about' },
-              { label: 'Terms', href: '/terms' },
-              { label: 'Privacy', href: '/privacy' },
-            ]}
-          />
-        </AuthProvider>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <body className="flex flex-col min-h-screen bg-background text-foreground font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <NavbarWithAuth 
+              logo="SupaNext"
+              links={[
+                { label: 'Home', href: '/' },
+                { label: 'Dashboard', href: '/dashboard' },
+                { label: 'Examples', href: '/examples' },
+                { label: 'About', href: '/about' },
+                { label: 'Contact', href: '/contact' },
+              ]}
+            />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer
+              companyName="SupaNext"
+              links={[
+                { label: 'Home', href: '/' },
+                { label: 'About', href: '/about' },
+                { label: 'Terms', href: '/terms' },
+                { label: 'Privacy', href: '/privacy' },
+              ]}
+            />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

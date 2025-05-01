@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Database } from '../lib/database.types';
+import { uiStyles } from '@/lib/ui-styles';
+import { Button } from './ui/Button';
 
 // Define type for user profile based on database schema
 type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
@@ -59,19 +61,18 @@ export default function RestApiExample() {
   }
   
   return (
-    <div className="p-4 border rounded-lg bg-gray-50">
+    <div className={`p-4 rounded-lg ${uiStyles.border.default} ${uiStyles.bg.secondary}`}>
       <h2 className="text-xl font-bold mb-4">Supabase REST API Example</h2>
       
-      <button 
+      <Button 
         onClick={() => fetchUserProfile('04a1652a-977d-47aa-a8d4-c53d107dfd76')}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
         disabled={loading}
       >
         {loading ? 'Loading...' : 'Fetch User Profile'}
-      </button>
+      </Button>
       
       {error && (
-        <div className="mt-4 p-3 bg-red-100 text-red-700 rounded">
+        <div className={`mt-4 p-3 rounded ${uiStyles.bg.error} ${uiStyles.text.error}`}>
           Error: {error}
         </div>
       )}
@@ -79,7 +80,7 @@ export default function RestApiExample() {
       {profile && (
         <div className="mt-4">
           <h3 className="text-lg font-semibold">User Profile</h3>
-          <pre className="mt-2 p-3 bg-gray-100 rounded overflow-auto">
+          <pre className={uiStyles.container.code}>
             {JSON.stringify(profile, null, 2)}
           </pre>
         </div>

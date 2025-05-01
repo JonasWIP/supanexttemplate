@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { uiStyles } from '@/lib/ui-styles';
 
 type UserProfileProps = {
   user: {
@@ -29,7 +30,7 @@ export default function UserProfile({ user, profile }: UserProfileProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden flex items-center justify-center">
+          <div className={`w-16 h-16 rounded-full ${uiStyles.bg.secondary} overflow-hidden flex items-center justify-center`}>
             {profile?.avatar_url ? (
               <Image 
                 src={profile.avatar_url}
@@ -39,15 +40,15 @@ export default function UserProfile({ user, profile }: UserProfileProps) {
                 className="object-cover"
               />
             ) : (
-              <span className="text-gray-500 dark:text-gray-400 text-2xl">👤</span>
+              <span className={uiStyles.text.secondary}>👤</span>
             )}
           </div>
           
           <div>
-            <h3 className="font-medium text-lg dark:text-white">
+            <h3 className="font-medium text-lg text-foreground">
               {profile?.full_name || user.email || 'User'}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className={uiStyles.text.secondary}>
               {profile?.username ? `@${profile.username}` : 'No username set'}
             </p>
           </div>
@@ -83,9 +84,9 @@ type ProfileFieldProps = {
 
 function ProfileField({ label, value, isMonospaced = false }: ProfileFieldProps) {
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700 pb-2">
-      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      <p className={`${isMonospaced ? 'font-mono text-sm break-all' : ''} dark:text-white`}>
+    <div className={`border-b ${uiStyles.border.default.split(' ')[1]} pb-2`}>
+      <p className={uiStyles.text.secondary}>{label}</p>
+      <p className={`${isMonospaced ? 'font-mono text-sm break-all' : ''} ${uiStyles.text.primary}`}>
         {value}
       </p>
     </div>

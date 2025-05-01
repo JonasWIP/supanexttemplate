@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Button from '../ui/Button';
+import { Button } from '../ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 
 interface DashboardActionsProps {
@@ -16,8 +16,8 @@ export default function DashboardActions({ onSignOut }: DashboardActionsProps) {
       </CardHeader>
       <CardContent className="space-y-3">
         <Button 
-          variant="danger" 
-          fullWidth 
+          variant="destructive" 
+          className="w-full" 
           onClick={onSignOut}
         >
           Sign Out

@@ -162,22 +162,6 @@ npm install -g supabase@latest
 2. Go to Settings → Auth → URL Configuration
 3. Update "Site URL" with your production domain
 
-## Future Improvements
-- https://magicui.design/docs/components/marquee magicui ?
-- Tests for Utisl and functions / auth / unauthenticated
-- Add more examples for Edge Functions
-- Metadata for SEO
-- SEO
-- Analytics
-- Mobile Support (Capacitor?)
-- Include knowledge gaps for ai models 
-- Revampl the documentation to explain/summarize the project for ai models
-- Add roomodes, project specific instructions, fill gaps of knowledge for ai models (context7,claude-task-master,https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
-- Add mcp tools for the used ai agent models
-- Module hinzufügbar wie Zahlungsdienstleister, Three.js, Advertisment
-- Automating More of the setup process
-- Full integration into a Custom Managment System  with frontend and development tools or mcp usage
-- Libraries to look at : https://uiverse.io/, https://ludo.ai/, https://spacetimedb.com/, https://magicui.design/docs/components/marquee, https://github.com/Tencent/Hunyuan3D-2 (or simmilar game asset mcps)
 
 ## License
 

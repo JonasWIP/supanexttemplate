@@ -6,17 +6,11 @@ import { User } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Create a conditional Supabase client
+// Create a Supabase client - will throw if environment variables are missing
 export const getSupabaseClient = () => {
-  // If environment variables are missing and we're on the client side, just return null
-  if ((!supabaseUrl || !supabaseAnonKey) && typeof window !== 'undefined') {
-    console.warn('Supabase environment variables are missing - client creation skipped');
-    return null;
-  }
-  
-  // If environment variables are missing and we're on the server side, throw an error
+  // If environment variables are missing, throw an error
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables');
+    throw new Error('Missing Supabase environment variables. Make sure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set.');
   }
   
   // Create the client with the available environment variables
@@ -32,7 +26,6 @@ export type UserProfile = Database['public']['Tables']['user_profiles']['Row'];
 // Auth helpers
 export async function getCurrentUser(): Promise<User | null> {
   const supabase = getSupabaseClient();
-  if (!supabase) return null;
   
   const { data: { session } } = await supabase.auth.getSession();
   return session?.user || null;
@@ -50,7 +43,6 @@ export async function getUserProfile(): Promise<UserProfile | null> {
 
 export async function getUserProfileById(userId: string): Promise<UserProfile | null> {
   const supabase = getSupabaseClient();
-  if (!supabase) return null;
   
   const { data, error } = await supabase
     .from('user_profiles')
@@ -68,7 +60,6 @@ export async function getUserProfileById(userId: string): Promise<UserProfile | 
 
 export async function signOut(): Promise<void> {
   const supabase = getSupabaseClient();
-  if (!supabase) return;
   
   await supabase.auth.signOut();
 }
@@ -86,7 +77,6 @@ export async function createOrUpdateUserProfile(
 ): Promise<UserProfile | null> {
   try {
     const supabase = getSupabaseClient();
-    if (!supabase) return null;
     
     // Check if profile exists
     const { data: existingProfile } = await supabase
@@ -147,7 +137,6 @@ export async function fetchFromTable<T = Record<string, unknown>>(
   }
 ): Promise<T[]> {
   const supabase = getSupabaseClient();
-  if (!supabase) return [];
   
   let query = supabase
     .from(tableName)

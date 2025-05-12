@@ -60,15 +60,6 @@ export default function HomePage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="relative">
-              <h3 className="text-xl font-medium mb-2">Project Creation</h3>
-              <p className="mb-3">Create a new project using the template:</p>
-              <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                <code>{`npx create-supabase-next <your-project-name>
-cd <your-project-name>`}</code>
-              </pre>
-            </div>
-
             <div>
               <h3 className="text-xl font-medium mb-2 flex items-center gap-2">
                 <span>Local Development Setup</span>
@@ -122,16 +113,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key-from-supabase-start>`}</code>
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-medium mb-2">2. Configure GitHub Repository Secrets</h4>
-                  <p className="mb-3">Navigate to your repository&apos;s Settings → Secrets and Variables → Actions → Manage environment secrets → production → add environment secret:</p>
-                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
-                    <code>SUPABASE_DB_PASSWORD = Your Supabase database password</code>
-                  </pre>
-                </div>
-
-                <div>
-                  <h4 className="text-lg font-medium mb-2">3. Create a Supabase Project <span className="text-sm font-normal text-muted-foreground">(to get more GitHub secrets)</span></h4>
-                  <p className="mb-3">Create a new project on Supabase:</p>
+                  <h4 className="text-lg font-medium mb-2">2. Create a Supabase Project <span className="text-sm font-normal text-muted-foreground">(to get more GitHub secrets)</span></h4>
+                  <p className="mb-3">Create a new project on the <a href="https://supabase.com/" target="_blank" rel="noreferrer" className="text-primary hover:underline">https://supabase.com/</a> site:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Copy the database password during creation</li>
                     <li>Open the project, click on &quot;Connect&quot; in the navbar</li>
@@ -141,6 +124,14 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key-from-supabase-start>`}</code>
                     <code>{`NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 YOUR_PROJECT_REF (project ID)`}</code>
+                  </pre>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-medium mb-2">3. Configure GitHub Repository Secrets</h4>
+                  <p className="mb-3">Navigate to your repository&apos;s Settings → Secrets and Variables → Actions → Manage environment secrets → production → add environment secret:</p>
+                  <pre className="bg-muted p-3 rounded overflow-x-auto text-sm">
+                    <code>SUPABASE_DB_PASSWORD = Your Supabase database password</code>
                   </pre>
                 </div>
 

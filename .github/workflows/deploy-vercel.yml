@@ -85,10 +85,27 @@ jobs:
           # Verify functions were deployed
           echo "Verifying deployed functions:"
           npm run supabase:functions:list
-        
-      # Vercel deployment steps
-      - name: Pull Vercel Environment Information
-        run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          # Vercel deployment steps
+      - name: Setup Vercel Project
+        run: |
+          # Ensure project name is lowercase
+          PROJECT_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          # Remove any non-alphanumeric characters except .-_ and replace with dashes
+          PROJECT_NAME=$(echo "$PROJECT_NAME" | sed 's/[^a-z0-9\._-]/-/g')
+          # Remove any instances of three consecutive dashes
+          PROJECT_NAME=$(echo "$PROJECT_NAME" | sed 's/---/-/g')
+          
+          echo "Using project name: $PROJECT_NAME"
+          
+          # Try to pull existing project configuration
+          if ! npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}; then
+            echo "Failed to pull project configuration. Creating new project..."
+            # Create new project
+            npx vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} --name="$PROJECT_NAME"
+            
+            # Pull again after linking
+            npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          fi
 
       - name: Build Project Artifacts
         env:
